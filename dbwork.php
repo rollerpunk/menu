@@ -1,16 +1,6 @@
 <?php
 
 
-//-----------------------------
-//-- make received data sefe -- TODO: move me to common functions
-//-----------------------------
-function test_input($data) {
-  $data = trim($data);
-  $data = stripslashes($data);
-  $data = htmlspecialchars($data);
-  return $data;
-}
-
 //--------------------
 //connect to DB
 //--------------------

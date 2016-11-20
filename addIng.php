@@ -8,7 +8,7 @@
 
 <body>
 <div class="add_form">
-<form method="post">
+<form method="post" action="actions.php">
   <fieldset>
   <legend><h2>Інгредієнт</h2></legend>  
   Назва:<br>
@@ -19,52 +19,20 @@
   </div> 
   <div style="display:inline-block">
    Фасофка:<br>
-     <input type= "number" name= "pack" min= "0" step= "0.1" placeholder="1" required autocomplete="off" size="4"/>
+     <input type= "number" name= "pack" min= "0" step= "0.01" placeholder="1" required autocomplete="off" size="4"/>
      <input type="radio" name="unit" value="кг" checked autocomplete="off"> кг
-     <input type="radio" name="unit" value="г" autocomplete="off"> гр <br>
+     <input type="radio" name="unit" value="г" autocomplete="off"> гр 
+     <input type="radio" name="unit" value="шт" autocomplete="off"> шт 
+     <br>
   </div><br>
   Накрутка:<br>
    <input type= "number" name= "factor" min= "1.1" step= "0.1" value= "2" required autocomplete="off" size="4"/>
   </fieldset><br>
-  <button>Додати</button>
-  <button class="cancel" onclick="location.href='printIng.php';">Відмінити</button> 
+  <button name="btn" value="add">Додати</button>
+  <button class="cancel" onclick="location.href='printIng.php';">Скасувати</button> 
 </form> 
 </div>
 
 </body>
-
-<?php
-
-require "dbwork.php"; // move all DB work outside
-
-//accept only post method
-if ($_SERVER["REQUEST_METHOD"] != "POST") {
- exit();
-}
-
-// define variables from post
-$name = test_input($_POST["name"]);
-$factor = test_input($_POST["factor"]);
-$pack = test_input($_POST["pack"]);
-$unit = test_input($_POST["unit"]);
-$price = test_input($_POST["price"]); 
-$table= "ingredients";
-
-if ($unit == "г")
-{
-  //we have grams, align packing to kg
-  // pack may be in pieces or kg. We assume that 1kg = 1l of liquid
-  $pack=$pack/1000;
-  $unit="кг"; 
-}
-
-$sql = "INSERT INTO ". $table ."(Name, Price, Pack ,Unit ,Factor)
-  VALUES ('$name','$price','$pack' ,'$unit' ,'$factor')";
-
-
-sendSql($sql);
-header( "Location: printIng.php" ); //go to ingredients view
-
-?>
 
 </html>
