@@ -61,41 +61,7 @@ $(document).on('change', '.calcTriger', function()
  });
 
 
-//--------------------------------------------
-// price calculation
-//--------------------------------------------
-function udatePrice()
-{
- //read ingredients
-  var price=0;
-  var dish=getDishObj(); 
-  for (i=0;i< dish.length;i++)
-  { 
-    priceIng = priceList[dish[i][0]]
-    if(!priceIng) //get price from DB if it wasn't done before
-    {
-      priceIng = getIngPrice(dish[i][0]);
-      priceList[dish[i][0]]=priceIng; 
-    }
-    
-    emount = dish[i][1];
-    // align units 
-     
-   
-    // we can try to calculate  (avoid reals)
-    tPrice = ( priceIng * emount ) ;
 
-    if(dish[i][2] == "г") tPrice = tPrice/1000;  
-    price+=tPrice ; 
-
-  }
-
-
-  price = (price*100 + $("#factor").val()*100)/100 ; //need to multyply by 1 to avoidstring
-  oldPrice=price;
-  $('#price').val(price);
-  $('#price').text(price);
-}
 
 //--------------------------------------------
 // triger for recalculation by factor change
@@ -173,4 +139,42 @@ $(document).on('focus', '.nameIng', function()
   //alert("keyup");
   $(this).autocomplete({ source: 'search.php'  });
 });
+
+//--------------------------------------------
+// price calculation
+//--------------------------------------------
+function udatePrice()
+{
+ //read ingredients
+  var price=0;
+  var dish=getDishObj(); 
+  for (i=0;i< dish.length;i++)
+  { 
+    priceIng = priceList[dish[i][0]]
+    if(!priceIng) //get price from DB if it wasn't done before
+    {
+      priceIng = getIngPrice(dish[i][0]);
+      priceList[dish[i][0]]=priceIng; 
+    }
+    
+    emount = dish[i][1];
+    // align units 
+     
+   
+    // we can try to calculate  (avoid reals)
+    tPrice = ( priceIng * emount ) ;
+
+    if(dish[i][2] == "г") tPrice = tPrice/1000;  
+    price+=tPrice ; 
+
+  }
+
+
+  price = (price*100 + $("#factor").val()*100)/100 ; //need to multyply by 1 to avoidstring
+  oldPrice=price;
+  $('#price').val(price);
+  $('#price').text(price);
+}
+
+
 
