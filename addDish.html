@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<head> 
+  <title>Додати страву</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <link rel="icon" href="menu.png" type="image/x-icon">
+  <link rel="stylesheet" href="menu.css">
+  <link rel="stylesheet" href="jquery-ui.css">
+  <script src="jquery-1.12.4.js"></script>
+  <script src="jquery-ui.js"></script>
+  <script type="text/javascript" src="menu.js"></script>
+</head>
+
+
+<body>
+<div class="add_form">
+  <fieldset>
+  <legend><h2>Інгредієнт</h2></legend>  
+  Назва страви:<br>
+  <input type="text" id = "nameDs" name="nameDs" placeholder= "Вібивна" autocomplete="off" required size="50"/> <br>
+   Iнгредієнти:<br>
+   <table class="dishComp">  
+     <tr>
+       <th>Складник</th><th colspan="2">Кількість</th>
+     </tr>
+     <tr id="lastIng"><td colspan="3"> <button id="addIng" onclick="addIngr()">Додати інгредієнт</button></td></tr>
+     <tr><th>Вихід</th><td><input type= "number" name= "output" min= "1" step= "0.01" placeholder="150" required autocomplete="off" size="4"/></td><td>г</td>  
+   </table>
+   <br>
+   Ціна: 
+   <input type= "number" id="price" min= "0" step= "0.05" placeholder="25" required autocomplete="off" size="4"/> грн<br>
+   Додаткова накрутка:
+   <input type= "number" id="factor" min= "0" step= "0.05" value= 0 autocomplete="off" size="4"/>
+  </fieldset><br>
+  <button onclick="addDish()" >Додати</button>
+  <button class="cancel" onclick="location.href='printIng.php';">Скасувати</button> 
+</div>
+
+</body>
+<script>
+
+</script>
+</html>

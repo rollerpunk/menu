@@ -14,6 +14,7 @@
     // edit ingredient on dblclick
     //--------------------------------------------
     $("#ingTbl").on("click", "tr", function() {
+//using click while long press is not implemented
 
        //check if it's not a header
        var x= $(this).find("th") 
@@ -44,7 +45,7 @@
        alert(JSON.stringify(ing)); 
        $('#ing').val(JSON.stringify(ing));
 
-//TODO: there is no dblclick on phones. use long press
+//TODO: there is no dblclick on phones. use long press like below
 
     $("a").mouseup(function(){
       clearTimeout(pressTimer);

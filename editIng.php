@@ -29,7 +29,7 @@
   Накрутка:<br>
    <input type= "number" name= "factor" min= "1.1" step= "0.1" value= "2" required autocomplete="off" size="4" value="<?php echo @ $_POST['factor']; ?>"/>
   </fieldset><br>
-  <button name="btn" value="edit">Зміннити</button>
+  <button name="btn" value="editI">Зміннити</button>
   <button class="cancel" onclick="location.href='printIng.php';">Скасувати</button> 
 </form> 
 </div>

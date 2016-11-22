@@ -1,6 +1,6 @@
 <?php
 
-require "dbwork.php"; // move all DB work outside
+require "lib.php"; // move all DB work outside
 
 //accept only post method
 if ($_SERVER["REQUEST_METHOD"] != "POST") {
@@ -48,20 +48,6 @@ header( "Location: printIng.php" ); //go to ingredients view TODO: we als may go
 
 
 
-
-//===========Functions=================
-
-
-
-//-----------------------------
-//-- make received data sefe --
-//-----------------------------
-function test_input($data) {
-  $data = trim($data);
-  $data = stripslashes($data);
-  $data = htmlspecialchars($data);
-  return $data;
-}
 
 
 ?>
