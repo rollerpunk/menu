@@ -11,11 +11,12 @@
 
 
 <div class="add_form">
-<form method="post" action="actions.php">
+<form method="post" action="wIng.php">
   <fieldset>
   <legend><h2>Інгредієнт</h2></legend>  
   Назва:<br>
-   <input type="text" name="name" placeholder= "Картопля" autocomplete="off" required size="40" value="<?php echo @ $_POST['name']; ?>"/> <br>
+      <input type="text" name="name" hidden value="<?php echo @ $_POST['name']; ?>"/>
+   <input type="text" name="newName" placeholder= "Картопля" autocomplete="off" required size="40" value="<?php echo @ $_POST['name']; ?>"/> <br>
   <div style="display:inline-block;margin:10px">
     Ціна:<br>
      <input type= "number" name= "price" min= "0" step= "0.05" placeholder="10" required autocomplete="off" size="4" value="<?php echo @ $_POST['price']; ?>"/> грн<br>
@@ -27,9 +28,9 @@
      <input type="radio" name="unit" value="шт" autocomplete="off" <?php if ($_POST['unit'] =='шт') echo "checked" ?>> шт <br>
   </div><br>
   Накрутка:<br>
-   <input type= "number" name= "factor" min= "1.1" step= "0.1" value= "2" required autocomplete="off" size="4" value="<?php echo @ $_POST['factor']; ?>"/>
+   <input type= "number" name= "factor" min= "1.1" step= "0.1" required autocomplete="off" size="4" value="<?php echo @ $_POST['factor']; ?>"/>
   </fieldset><br>
-  <button name="btn" value="editI">Зміннити</button>
+  <button name="btn" value="editIng">Зміннити</button>
   <button class="cancel" onclick="location.href='printIng.php';">Скасувати</button> 
 </form> 
 </div>

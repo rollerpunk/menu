@@ -84,7 +84,7 @@ button.active {
 }
 
 
-
+/* for autocomlite addon */ 
 .ui-autocomplete {
   max-height: 100px;
   overflow-y: auto;

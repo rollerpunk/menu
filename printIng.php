@@ -5,7 +5,6 @@
   <link rel="icon" href="menu.png" type="image/x-icon">
   <link rel="stylesheet" href="menu.css">
   <script src="jquery.min.js"></script>
-  <script type="text/javascript" src="menu.js"></script>
 
   <script>
   //it's very page dependant script, by #ingTbl. We should not run it for all pages
@@ -25,13 +24,24 @@
 
        //TODO: create editable field . use td above.   
        line= $(this).text().split(" ");       
+  
+//to find indexes
+  /*     str="";
+       for (i=6;i<line.length;i++)
+       {
+         str+=", "+i+":"+line[i];
+         if (i%7==0)
+           str+="\n";
+       }      
 
-       // fill form and send it to editIng.php withh post
+       alert (str);*/
+
+       // fill hidden form and send it to editIng.php withh post
        $('#ingName').val(line[6]);
-       $('#price').val(line[21]);
-       $('#pack').val(line[13]);
-       $('#unit').val(line[14]);
-       $('#factor').val(line[36]);
+       $('#price').val(line[13]);
+       $('#pack').val(line[21]);
+       $('#unit').val(line[22]);
+       $('#factor').val(line[43]);
 
        $('#formIng').submit(); //submiin form
 
@@ -97,22 +107,29 @@ function printIngredients($result)
     echo ("<div class=\"ingr_table\" id=\"ingTbl\" ><table>
     <tr>
       <th>Інгредієнт</th>
-      <th>Фасофка</th>
       <th>Ціна</th>
-      <th>Ціна за одиницю</th>
+      <th>Фасофка</th>
+      <th colspan=\"2\" >Ціна за одиницю</th>
       <th>Накрутка</th>
       <th>Накручена ціна</th>
     </tr>");
   //rows
+
     while($row = $result->fetch_assoc())
     {
+      $tPrice  = $row['Price']/$row['Pack'];
+      $tUnit = $row['Unit'];
+      $tPack=$row['Pack'];
+
+
       echo("<tr>
       <td>".$row['Name']." </td>
-      <td>".$row['Pack']." ".$row['Unit']." </td>
-      <td>".$row['Price']." </td>
-      <td>".$row['Price']/$row['Pack']." грн/".$row['Unit']." </td>
+      <td>".($row['Price'])." грн </td>
+      <td>".$tPack." ".$tUnit." </td>
+      <td>".$tPrice." </td>
+      <td>грн/".$tUnit." </td>
       <td>".$row['Factor']." </td>
-      <td>".$row['Price']/$row['Pack']*$row['Factor']." </td>
+      <td>".$tPrice*$row['Factor']." </td>
       </tr>");     
     }
     echo ("</table></div>");
@@ -123,8 +140,9 @@ function printIngredients($result)
 
 <br>
 <hr>
-  <button onclick="location.href='addIng.php';">Додати інгредієнт</button> 
-
+  <button onclick="location.href='addIng.html';">Додати інгредієнт</button> 
+  <button onclick="location.href='addDish.html';">Додати страву</button> 
+  
 <form method="post" action="editIng.php" id="formIng">
    <input type="hidden" id="ingName" name="name">
    <input type="hidden" id="price" name="price">
