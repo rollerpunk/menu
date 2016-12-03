@@ -11,28 +11,26 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") {
 // get variables from post
 
 $orderCode = test_input($_POST["ordercode"]);
-$table = test_input($_POST["table"]);
 $name = test_input($_POST["name"]);
 
 switch ($orderCode) {
   case "getPrice":
+    $table = test_input($_POST["table"]);
     $sql = "SELECT * FROM ".$table." WHERE Name='$name';";
     $result=sendSql($sql);
     $row = $result->fetch_assoc();
     echo json_encode($row,JSON_UNESCAPED_UNICODE );  
     break;
 
-  case "saveDish":
-    exit("saveDish is not impleented yet!");          
-    break;
 
-  case "del":
-    exit("Delete is not impleented yet!");  
+  case "getDish":
+    $sql = "SELECT * FROM dish WHERE Name='$name';";
+    $result=sendSql($sql);
+    $row = $result->fetch_assoc();
+    echo json_encode($row,JSON_UNESCAPED_UNICODE );  
     break;
   default:
-    echo ("wrong order code !!". $btn);
-    sleep(10);
-    header( "Location: printIng.php" );
+    echo ("wrong order code !!". $orderCode);
 }
 
 ?>

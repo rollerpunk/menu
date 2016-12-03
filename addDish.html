@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="jquery-ui.css">
   <script src="jquery-1.12.4.js"></script>
   <script src="jquery-ui.js"></script>
-  <script type="text/javascript" src="common.js"></script>
+  <script type="text/javascript" src="ajaxW.js"></script>
   <script type="text/javascript" src="addDish.js"></script>
 </head>
 
@@ -33,12 +33,13 @@
    </table>
    <br>  
   </fieldset><br>
+  </form>
   <button onclick="addDish()" >Додати</button>
   <button class="cancel" onclick="location.href='printIng.php';">Скасувати</button> 
-  </form>
+
 </div>
   
- <form method="post" action="addD.php" id="addDish">
+ <form method="post" action="wDish.php" id="addDish">
    <input type="hidden" id="dName" name="dname">
    <input type="hidden" id="ingr" name="ingr">
    <input type="hidden" id="emount" name="emount">
