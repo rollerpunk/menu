@@ -18,8 +18,10 @@ asynchronous answer comes and rersult is handled by result handler
 */
 
 
-function sendHttpReq(url,request,action)
+function sendHttpReq(request,action)
 {
+  url ="ajaxW.php";
+
   if (window.XMLHttpRequest)
     { xmlhttp=new XMLHttpRequest();}  /*code for IE7+, Firefox, Chrome, Opera, Safari*/  
   else
@@ -72,27 +74,33 @@ function resultHandler(result,action)
     case "getPriceingredients":
       getPricePart2(result);
       break;
-    default:
-      alert("Not supported action:"+action);
     case "getDishDetail":
       dishDetailPart2(result);
       break;
+    case "getPriceList":
+      setPriceList(result);
+      break;
+
+    default:
+      alert("Not supported action:"+action);
+
   } 
 }
+//////////////////////////////////////////////////
+// trigers
+//////////////////////////////////////////////////
 
-
-//----------------------------------------------------------------------------------
+//----------------------------------
 // reads price of item from any table 
-//--------------------------------------------------------------------------------
+//----------------------------------
 /* there must be Name and Price colums
-Actualy more options may be implemented, but it would be more usefoul with common naming
+Actualy more options may be implemented, but it would be more usefoul with common naming TODO: currently uses only once
 */
 function dbGetPrice(item,table,action)
 { 
   action="getPrice"+table;
-  url ="ajaxW.php";
   request = 'ordercode=getPrice&table='+table+'&name='+item;
-  sendHttpReq(url,request,action); // we do not expect any answer. Function will be trigered at POST reply
+  sendHttpReq(request,action); // we do not expect any answer. Function will be trigered at POST reply
 }
 
 
@@ -102,10 +110,19 @@ function dbGetPrice(item,table,action)
 function dbGetDish(item)
 {
   action="getDishDetail";
-  url ="ajaxW.php";
-
   request = 'ordercode=getDish&name='+item;
-  sendHttpReq(url,request,action); // we do not expect any answer. Function will be trigered at POST reply
+  sendHttpReq(request,action); 
+}
+
+
+//-----------------------------------
+// update prices at editDish loads
+//-----------------------------------
+function updatePrice(list)
+{
+  action="getPriceList";
+  request = 'ordercode=getPriceList&name='+list;
+  sendHttpReq(request,action); 
 }
 
 
@@ -116,5 +133,8 @@ function handleError(msg)
 {
   alert("ERROR:\n"+msg);  //TODO make me better
 }
+
+
+
 
 

@@ -58,6 +58,18 @@ $str="CREATE TABLE IF NOT EXISTS `ingredients` (
 )";
 sendSql($str);
 
+$str="CREATE TABLE IF NOT EXISTS `dish` (
+  `Name` varchar(50) NOT NULL,
+  `Price` int(11) NOT NULL,
+  `Outcome` int(11) NOT NULL,
+  `Factor` int(11) NOT NULL,
+  `Ingredients` text NOT NULL,
+  `Emounts` text NOT NULL,
+  UNIQUE KEY `Name` (`Name`)
+)";
+
+sendSql($str);
+
 }
 
 

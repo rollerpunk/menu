@@ -29,6 +29,24 @@ switch ($orderCode) {
     $row = $result->fetch_assoc();
     echo json_encode($row,JSON_UNESCAPED_UNICODE );  
     break;
+
+  case "getPriceList":
+    $ings=explode("^", $name);
+    $sql= "SELECT * FROM ingredients WHERE Name='".$ings[0]."'";
+    for($i=1;($i+1)<count($ings);$i++) // 1 extra element .do not count
+      $sql= $sql." OR Name='".$ings[$i]."'";
+    $sql=$sql.";";
+
+    $result=sendSql($sql);
+    $i=0;
+    echo "{";
+    while ($row = $result->fetch_assoc()) // TODO : many objects?
+    {
+      echo "\"".$i++."\": ".json_encode($row,JSON_UNESCAPED_UNICODE ).",";  
+    }
+    echo "\"length\":".$i;
+    echo "}";
+    break;
   default:
     echo ("wrong order code !!". $orderCode);
 }

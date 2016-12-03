@@ -12,8 +12,7 @@
 
 <?php
 
-require "dbwork.php"; // move all DB work outside
-
+require "lib.php"; 
 printIngredients();
 
 
@@ -46,8 +45,6 @@ function printIngredients()
       $tPrice  = $row['Price']/$row['Pack'];
       $tUnit = $row['Unit'];
       $tPack=$row['Pack'];
-
-
       echo("<tr>
       <td>".$row['Name']." </td>
       <td>".($row['Price'])." грн </td>

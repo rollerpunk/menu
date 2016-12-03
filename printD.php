@@ -61,14 +61,8 @@ function printDishlist()
   <button onclick="location.href='addIng.html';">Додати інгредієнт</button> 
   <button onclick="location.href='addDish.html';">Додати страву</button> 
   
- <form method="post" action="addD.php" id="addDish">
-   <input type="hidden" id="dName" name="dname">
-   <input type="hidden" id="ingr" name="ingr">
-   <input type="hidden" id="emount" name="emount">
-   <input type="hidden" id="outcome" name="outcome">
-   <input type="hidden" id="dprice" name="dprice">
-   <input type="hidden" id="dfactor" name="dfactor">
-
+ <form method="post" action="editD.php" id="editDish">
+   <input type="hidden" id="name" name="name">
 </form>
 
 </body>

@@ -16,8 +16,6 @@ $outcome = test_input($_POST["outcome"]); //outcome of a dish
 $factor = test_input($_POST["dfactor"]);
 $ings= test_input($_POST["ingr"]); 
 $emount = test_input($_POST["emount"]); // of ingredient
-
-
 $btn= test_input($_POST["action"]); 
 
 
@@ -28,25 +26,21 @@ switch ($btn) {
     break;
 
   case "editD":
-   /* $newName = test_input($_POST["newName"]);
-    $sql="UPDATE ingredients
-          SET Price='$price', Pack='$pack',Unit='$unit',Factor='$factor',Name='$newName'
-          WHERE Name='$name'"; 
+    $oldName= test_input($_POST["oldName"]); 
+    $sql="UPDATE dish
+          SET Price='$price',Outcome='$outcome',Factor='$factor',Name='$name',Ingredients='$ings',Emounts='$emount' 
+          WHERE Name='$oldName'"; 
     break;
-     */   
-    ;
+    
+   
 
   case "delD":
   ;
   default:
     echo ("wrong order code !!". $btn);
-    header( "Location: printD.php" );
 }
 
-
 sendSql($sql);
-
-echo ("done");
 header( "Location: printD.php" ); //go to ingredients view TODO: we also may go to menu or dish list
 
 

@@ -185,11 +185,11 @@ function getPricePart2(result)
   //price is per kg,but we use it for grams (1000 times more)   <----kostul dlja kalkyljacii v js
 
   ing = JSON.parse(result); 
-  priceList[ing.Name] = ing.Price/ing.Pack*ing.Factor; //set factorised price*1000
+  priceList[ing.Name] = ing.Price/ing.Pack*ing.Factor*(ing.Unit=="кг" ? 1:1000); //set factorised price*1000
 
   $row=$(".td-active").closest("tr");
   $row.find("td:nth-child(2)").empty();  //select 2nd column (td)
-  $row.find("td:nth-child(2)").append(priceList[ing.Name]+" грн/"+ ing.Unit); 
+  $row.find("td:nth-child(2)").append(priceList[ing.Name]/(ing.Unit=="кг" ? 1:1000)+" грн/"+ ing.Unit); 
   $row.find("td:nth-child(4)").empty();
   $row.find("td:nth-child(4)").append((ing.Unit=="кг"? "г": ing.Unit));//translate to g
   emount = $row.find("td:nth-child(3)").find("input").val(); //get emount of ingredient
@@ -211,7 +211,7 @@ function getPricePart2(result)
 // syntax for dynamicly created elements
 $(document).on('click', '.delBtn', function()
 {
-  alert("del");
+
   $row=$(this).closest("tr");
   $row.remove();
 
@@ -222,7 +222,25 @@ $(document).on('click', '.delBtn', function()
 });
 
 
-
+//-----------------------------------
+// update prices at editDish loads
+//-----------------------------------
+function setPriceList(result) //json object
+{
+  ings = JSON.parse(result); 
+  len = ings["length"];
+  for (i=0;i<len;i++)
+  {    
+    price= ings[i]["Price"]/ings[i]["Pack"]*ings[i]["Factor"]*(ings[i]["Unit"]=="кг"? 1:1000);
+    priceList[ings[i]["Name"]]=price;   
+  }
+    price = udatePrice();
+    
+    if ($('#price').val() != price)
+      alert ("price updated \nold:"+$('#price').val()+"\nnew: "+price);
+    $('#price').text(price);
+    $('#price').val(price);
+}
 
 //-----------------------------------------------------
 // aoutocomplete at ingreient with available in DB

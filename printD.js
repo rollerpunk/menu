@@ -12,11 +12,11 @@ $(document).on('click', 'tr.passive', function()
    { //skip headlines
       return; 
    }
-   line= $(this).text().split(" ");
-       
+   dish=$(this).find("td:nth-child(1)").text();
+
    //create editable field . use td above. 
    $(this).addClass( "tr-active" ); //to find the priceHolder  
-   dbGetDish(line[6]);  //get dish details
+   dbGetDish(dish);  //get dish details
   
 //cntinue in part 2   
 });
@@ -27,8 +27,8 @@ $(document).on('click', 'tr.passive', function()
 // receive json of ingredients
 function dishDetailPart2(result)
 {  
-  data = JSON.parse(result); 
 
+  data = JSON.parse(result); 
   ing= data.Ingredients.split("^"); // should be the same length
   emount= data.Emounts.split("^"); // checked before write wtrite to db
   
@@ -71,7 +71,8 @@ $(document).on('click', '.dish_details', function()
    //alert ("clicked: "+ $(this).prop("tagName"));
    $row = $(this).prev("tr"); // get dish
    item = $row.find("td:nth-child(1)").html();
-   alert ("to be edited: "+ item);
+   $("#name").val(item);
+   $('#editDish').submit(); //submiin form
 
 });
 
