@@ -14,26 +14,18 @@
 
 require "dbwork.php"; // move all DB work outside
 
-printIngredients(getIngredients());
-
+printIngredients();
 
 
 //-------------------------------------------------------------------
-//----------------------------------------
-// --get array of ingredients
-//----------------------------------------
-function getIngredients()
-{  
-  $sql = "SELECT * FROM ingredients";
-  return sendSql($sql); 
-} // TODO: we will use objects soon
-
 
 //----------------------------------------
 // --print table of ingredients
 //----------------------------------------
-function printIngredients($result)
+function printIngredients()
 {
+  $result = sendSql("SELECT * FROM ingredients"); 
+
   if($result->num_rows > 0)
   {
   //good it's time to create table

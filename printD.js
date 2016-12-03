@@ -1,59 +1,8 @@
-//it's very page dependant script, by #dishTbl. We should not run it for all pages
-
-
-$(function(){ // we have dynamic page. wait until it loads
-  $(".dDetails").on("click", "tr", function() {
-      var x= $(this).find("th") 
-   if (x.length != 0)
-   { //skip headlines
-      return; 
-   }
-
-//to find indexes
-
-     str="";
-     for (i=6;i<line.length;i++)
-     {
-       str+=", "+i+":"+line[i];
-       if (i%7==0)
-         str+="\n";
-     }      
-     line= $(this).text().split(" ");       
-     alert (str);
-
-     // fill hidden form and send it to editIng.php withh post
- /*    $('#ingName').val(line[6]);
-     $('#price').val(line[13]);
-     $('#pack').val(line[21]);
-     $('#unit').val(line[22]);
-     $('#factor').val(line[43]);
-
-     $('#formIng').submit(); //submiin form
-
-//TODO: there is no dblclick on phones. use long press like below
-
-  $("a").mouseup(function(){
-    clearTimeout(pressTimer);
-    // Clear timeout
-    return false;
-  }).mousedown(function(){
-    // Set timeout
-    pressTimer = window.setTimeout(function() { ... Your Code ...},1000);
-    return false; 
-  });
-
-     */
-  });
-
-});
-
-
-
 //-----------------------------------------------------
-// aoutocomplete at ingreient with available in DB
+// print dish details
 //-----------------------------------------------------
 // syntax for dynamicly created elements
-$(document).on('click', 'tr', function() // TODO: add id selector
+$(document).on('click', 'tr.passive', function() 
 {
 //using click while long press is not implemented
 
@@ -63,12 +12,10 @@ $(document).on('click', 'tr', function() // TODO: add id selector
    { //skip headlines
       return; 
    }
-
-
-   line= $(this).text().split(" ");       
+   line= $(this).text().split(" ");
+       
    //create editable field . use td above. 
-   $(this).addClass( "tr-active" ); //to find the priceHolder
-  
+   $(this).addClass( "tr-active" ); //to find the priceHolder  
    dbGetDish(line[6]);  //get dish details
   
 //cntinue in part 2   
@@ -78,10 +25,56 @@ $(document).on('click', 'tr', function() // TODO: add id selector
 //-------------------------------------
 //second part to be called when result will come
 // receive json of ingredients
-function dishDetailPart2(data)
+function dishDetailPart2(result)
 {  
-  alert ("removeme :get dish--\n "+ data);
-} // TODO: we will use objects soon
+  data = JSON.parse(result); 
+
+  ing= data.Ingredients.split("^"); // should be the same length
+  emount= data.Emounts.split("^"); // checked before write wtrite to db
+  
+  str='<tr class="dish_details" > <td colspan="3" > <table> ';
+  for (i=0;i<ing.length-1;i++) //there is extra separator. just ignore last element
+  {
+    str+="<tr><td>"+ing[i]+"</td><td>"+emount[i]+" г</td></tr>"
+  }
+  str+="</table></td></tr>";
+  $row=$(".tr-active"); //find active row
+  // insert details       
+  $row.after(str);
+
+
+  $row.addClass( "expanded" );
+  $row.removeClass("passive");
+  $row.removeClass("tr-active");
+} 
+
+
+//-----------------------------------------------------
+// colapse dish details
+//-----------------------------------------------------
+// syntax for dynamicly created elements
+$(document).on('click', 'tr.expanded', function()
+{
+  $row = $(this).next("tr");
+  $row.remove();
+  $(this).removeClass("expanded");
+  $(this).addClass("passive");
+});
+
+
+//-----------------------------------------------------
+// edit dish 
+//-----------------------------------------------------
+// syntax for dynamicly created elements
+$(document).on('click', '.dish_details', function()
+{
+   //alert ("clicked: "+ $(this).prop("tagName"));
+   $row = $(this).prev("tr"); // get dish
+   item = $row.find("td:nth-child(1)").html();
+   alert ("to be edited: "+ item);
+
+});
+
 
 
 

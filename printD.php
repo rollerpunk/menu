@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <head> 
-  <title>Iнгредієнти</title>
+  <title>Страви</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <link rel="icon" href="menu.png" type="image/x-icon">
   <link rel="stylesheet" href="menu.css">
@@ -44,7 +44,7 @@ function printDishlist()
 
     while($row = $result->fetch_assoc())
     {
-      echo("<tr>
+      echo("<tr class='passive'>
       <td>".$row['Name']." </td>
       <td>".$row['Outcome']." г</td>
       <td>".$row['Price']." грн </td>

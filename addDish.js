@@ -140,7 +140,7 @@ function addDish()
   }
 
 
-  $("#ingr").val(ing);
+  $("#ingr").val(ing);  //TODO check if the same num of elements
   $("#emount").val(emnt);  
 
 //TODO: check data

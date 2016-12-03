@@ -36,8 +36,7 @@ switch ($btn) {
     $newName = test_input($_POST["newName"]);
     $sql="UPDATE ingredients
           SET Price='$price', Pack='$pack',Unit='$unit',Factor='$factor',Name='$newName'
-          WHERE Name='$name'"; 
-        
+          WHERE Name='$name'";         
     break;
 
   case "del":
@@ -47,7 +46,6 @@ switch ($btn) {
     echo ("wrong order code !!". $btn);
     header( "Location: printIng.php" );
 }
-
 
 sendSql($sql);
 

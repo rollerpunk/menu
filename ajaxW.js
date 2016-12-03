@@ -1,4 +1,7 @@
 
+//TODO: add info on page about ongoing request
+
+
 //-----------------------------------------
 //  send http request (POST) and return responce
 //-----------------------------------------
@@ -78,10 +81,6 @@ function resultHandler(result,action)
 }
 
 
-
-
-
-
 //----------------------------------------------------------------------------------
 // reads price of item from any table 
 //--------------------------------------------------------------------------------
@@ -91,7 +90,7 @@ Actualy more options may be implemented, but it would be more usefoul with commo
 function dbGetPrice(item,table,action)
 { 
   action="getPrice"+table;
-  url ="work.php";
+  url ="ajaxW.php";
   request = 'ordercode=getPrice&table='+table+'&name='+item;
   sendHttpReq(url,request,action); // we do not expect any answer. Function will be trigered at POST reply
 }
@@ -103,13 +102,11 @@ function dbGetPrice(item,table,action)
 function dbGetDish(item)
 {
   action="getDishDetail";
-  url ="work.php";
+  url ="ajaxW.php";
 
   request = 'ordercode=getDish&name='+item;
   sendHttpReq(url,request,action); // we do not expect any answer. Function will be trigered at POST reply
 }
-
-
 
 
 //---------------------------------------------------------------------------------
