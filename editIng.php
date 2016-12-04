@@ -4,12 +4,19 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <link rel="icon" href="menu.png" type="image/x-icon">
   <link rel="stylesheet" href="menu.css">
+  <script src="jquery-1.12.4.js"></script>
+  <script type="text/javascript" src="common.js"></script>
 </head>
 
 
 <body>
+<?php
 
+require "lib.php"; 
+createMenu();
 
+?>
+<div class="main_div">
 <div class="add_form">
 <form method="post" action="wIng.php">
   <fieldset>
@@ -34,7 +41,7 @@
   <button class="cancel" onclick="location.href='printIng.php';">Скасувати</button> 
 </form> 
 </div>
-
+</div>
 </body>
 
 </html>

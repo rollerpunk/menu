@@ -6,16 +6,21 @@
   <link rel="stylesheet" href="menu.css">
   <script src="jquery.min.js"></script>
   <script src="printIng.js"></script>
+  <script type="text/javascript" src="common.js"></script>
  
 </head>
 <body>
-
 <?php
 
 require "lib.php"; 
+createMenu();
+
+?>
+<div class="main_div">
+
+
+<?php
 printIngredients();
-
-
 //-------------------------------------------------------------------
 
 //----------------------------------------
@@ -61,11 +66,14 @@ function printIngredients()
 
 ?>
 
-<br>
+</div>
+<footer class="footer_btn">
 <hr>
-  <button onclick="location.href='addIng.html';">Додати інгредієнт</button> 
-  <button onclick="location.href='addDish.html';">Додати страву</button> 
-  
+  <button onclick="location.href='addIng.php';">Додати інгредієнт</button> 
+  <button onclick="location.href='addDish.php';">Додати страву</button> 
+
+</footer>
+
 <form method="post" action="editIng.php" id="formIng">
    <input type="hidden" id="ingName" name="name">
    <input type="hidden" id="price" name="price">
@@ -73,7 +81,6 @@ function printIngredients()
    <input type="hidden" id="unit" name="unit">
    <input type="hidden" id="factor" name="factor">
 </form>
-
 </body>
 </html>
 

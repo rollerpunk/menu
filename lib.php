@@ -14,4 +14,15 @@ function test_input($data) {
 }
 
 
+function createMenu()
+{
+ echo'<div class="nav_menu">   
+ <ul>
+  <li><a href="printD.php">Страви</a></li>
+  <li><a href="printIng.php">Інгредієнти</a></li>
+  <li><a href="feddback.php">Відгук</a></li>
+  <li><a href="about.html">Допомога</a></li>
+</ul></div>'; 
+}
+
 ?>

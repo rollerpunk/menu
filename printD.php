@@ -7,13 +7,21 @@
   <script src="jquery.min.js"></script>
   <script type="text/javascript" src="ajaxW.js"></script>
   <script src="printD.js"></script>
+  <script type="text/javascript" src="common.js"></script>
 </head>
 <body>
 
 <?php
 
-require "dbwork.php"; // move all DB work outside
+require "lib.php"; // move all DB work outside
 
+createMenu();
+?>
+
+<div class="main_div">
+
+
+<?php
 printDishlist();
 
 // there is html below
@@ -56,11 +64,13 @@ function printDishlist()
 
 ?>
 
-<br>
+</div>
+<footer class="footer_btn">
 <hr>
-  <button onclick="location.href='addIng.html';">Додати інгредієнт</button> 
-  <button onclick="location.href='addDish.html';">Додати страву</button> 
-  
+  <button onclick="location.href='addIng.php';">Додати інгредієнт</button> 
+  <button onclick="location.href='addDish.php';">Додати страву</button> 
+</footer>  
+
  <form method="post" action="editD.php" id="editDish">
    <input type="hidden" id="name" name="name">
 </form>

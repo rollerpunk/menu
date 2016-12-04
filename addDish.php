@@ -9,10 +9,18 @@
   <script src="jquery-ui.js"></script>
   <script type="text/javascript" src="ajaxW.js"></script>
   <script type="text/javascript" src="wDish.js"></script>
+  <script type="text/javascript" src="common.js"></script>
 </head>
 
 
 <body>
+<?php
+
+require "lib.php"; 
+createMenu();
+
+?>
+<div class="main_div">
 <div class="add_form">
   <form>
   <fieldset>
@@ -48,6 +56,6 @@
    <input type="hidden" id="dfactor" name="dfactor">
    <input type="hidden" id="action" name="action" value="addD">
 </form>
-
+</div>
 </body>
 </html>

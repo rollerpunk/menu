@@ -9,6 +9,7 @@
   <script src="jquery-ui.js"></script>
   <script type="text/javascript" src="ajaxW.js"></script>
   <script type="text/javascript" src="wDish.js"></script>
+  <script type="text/javascript" src="common.js"></script>
 
 <script type="text/javascript">
 
@@ -31,6 +32,13 @@ $(function(){ // we have dynamic page. wait until it loads
 
 
 <body>
+<?php
+
+require "lib.php"; 
+createMenu(); 
+
+?>
+<div class="main_div">
 <div class="add_form">
   <form>
   <fieldset>
@@ -45,8 +53,6 @@ $(function(){ // we have dynamic page. wait until it loads
 
 
 <?php
-
-require "lib.php"; 
 
 // it's time to get all dish data and put to the form
 $name = test_input($_POST["name"]);
@@ -106,6 +112,6 @@ echo '<tr id="lastIng"><td colspan="3"> <button id="addIng" onclick="addIngr()">
    <input type="hidden" id="dfactor" name="dfactor">
    <input type="hidden" id="action" name="action" value="editD">
 </form>
-
+</div>
 </body>
 </html>
