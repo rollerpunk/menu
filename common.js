@@ -1,9 +1,9 @@
 // TODO:
-// -- set active menu
-// -- footer for butttons
+// -- footer for butttons needs to stick if page is very long
 // -- set layout : vertical/horisontal
 // -- calculate and set best menu width
 // -- hidde/show menu for vertical layout
+
 $(function(){ // we have dynamic page. wait until it loads
   setActiveMenu();
 });

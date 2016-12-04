@@ -70,8 +70,6 @@ function printIngredients()
 <footer class="footer_btn">
 <hr>
   <button onclick="location.href='addIng.php';">Додати інгредієнт</button> 
-  <button onclick="location.href='addDish.php';">Додати страву</button> 
-
 </footer>
 
 <form method="post" action="editIng.php" id="formIng">
