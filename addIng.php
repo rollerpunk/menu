@@ -19,7 +19,7 @@ createMenu();
 <div class="add_form">
 <form method="post" action="wIng.php">
   <fieldset>
-  <legend><h2>Інгредієнт</h2></legend>  
+  <legend><h2>Додати інгредієнт</h2></legend>  
   Назва:<br>
    <input type="text" name="name" placeholder= "Картопля" autocomplete="off" required size="40"> <br>
   <div style="display:inline-block;margin:10px">

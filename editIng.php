@@ -20,7 +20,7 @@ createMenu();
 <div class="add_form">
 <form method="post" action="wIng.php">
   <fieldset>
-  <legend><h2>Інгредієнт</h2></legend>  
+  <legend><h2>Змінити інгредієнт</h2></legend>  
   Назва:<br>
       <input type="text" name="name" hidden value="<?php echo @ $_POST['name']; ?>"/>
    <input type="text" name="newName" placeholder= "Картопля" autocomplete="off" required size="40" value="<?php echo @ $_POST['name']; ?>"/> <br>
