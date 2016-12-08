@@ -1,16 +1,61 @@
 // TODO:
 // -- mobile view 6p 
-// -- separate menu for mobile 
-// -- redirect to mobile
-// -- freeze span !! on big table
-// -- set layout : vertical/horisontal
+// -- freeze panels !! on big table
+// -- set layout : vertical/horisontal < -needed ?
 // -- floating thead for tables
-// -- calculate and set best menu width
 
 $(function(){ // we have dynamic page. wait until it loads
   setActiveMenu(); // define what sector is active
   stickFooter();
+  selectLayout(); //check if mobile
 });
+
+
+//---------------------------------------
+// select which  menu item is active
+//---------------------------------------
+function setActiveMenu()
+{
+  n = location.pathname.lastIndexOf("/")
+  page = location.pathname.substring(n+1);
+
+
+  $(".titlePage").empty();
+
+
+  switch (page) {
+    case "addIng.php":;
+    case "editIng.php":;
+    case "printIng.php":
+        page= "printIng.php";
+        $(".titlePage").append("Інгрідієнти");
+        break;
+    case "addDish.php":;
+    case "editD.php":;
+    case "printD.php":
+        $(".titlePage").append("Страви");
+        page="printD.php";
+        break;
+    //add other pages too
+
+   
+    default:
+     alert ("warning: \nadd page to menu handler:\n"+page);
+     $(".titlePage").append(page);
+     return;
+  }
+  
+  $(".left_menu a").each(function(){ 
+    if ( page == this.getAttribute('href', 2))
+    {
+      $(this).parent().addClass("active");
+      return;
+    }
+ 
+  });
+}
+
+
 
 // -------------------------------------------
 // show/hide navigation menu
@@ -39,48 +84,10 @@ $(document).on('click', '#opener', function()
   $(".footer_btn").css("width",dWidth);
 });
 
-//---------------------------------------
-// select which  menu item is active
-//---------------------------------------
-function setActiveMenu()
-{
-  page = location.pathname.substring(1);
-  $(".titlePage").empty();
 
-
-  switch (page) {
-    case "addIng.php":;
-    case "editIng.php":;
-    case "printIng.php":
-    case "mPrintIng.php":
-        page= "printIng.php";
-        $(".titlePage").append("Інгрідієнти");
-        break;
-    case "addDish.php":;
-    case "editD.php":;
-    case "printD.php":
-    case "mPrintD.php":
-        $(".titlePage").append("Страви");
-        page="printD.php";
-        break;
-    //add other pages too
-
-    default:
-     alert ("add page to menu handler:\n"+page);
-     $(".titlePage").append(page);
-     return;
-  }
-  
-  $(".nav_menu a").each(function(){
-    if ( page == this.getAttribute('href', 2))
-    {
-      $(this).parent().addClass("active");
-      return;
-    }
- 
-  });
-}
-
+//-----------------------------------------
+// stick footer if tabble is tall
+//-----------------------------------------
 function stickFooter()
 {
   if ($(window).height() < $(document).height()) // it's too long. stick footer
@@ -104,4 +111,46 @@ function stickFooter()
   }
  
 }
+
+
+//-----------------------------
+// open/close mbile menu
+//-----------------------------
+$(document).on('click', '.mOpener', function() 
+{
+  if ($('.left_menu').is(':visible'))
+  {
+    $('#mMenu').hide();
+    $(".main_div, .footer_btn").show();
+  }
+  else
+  {
+    $('#mMenu').show();
+    $(".main_div, .footer_btn").hide();
+  }
+
+});
+
+//-------------------------------
+// select layut depending on device
+//-------------------------------
+
+function selectLayout()
+{
+  if (screen.width < 800) 
+  {//mobile
+
+    $(".nav_menu").remove();
+    $(".topBar").show();
+    $('#mMenu').hide();
+  }
+  else //pc
+  {
+    $("#opener").show();
+    $(".topBar").remove();
+    $("#mMenu").remove();
+  }
+
+}
+
 
