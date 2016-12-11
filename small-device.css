@@ -1,4 +1,4 @@
-@import url("coommon.css");
+@import url("common.css");
 
 html, body{
   padding :0px;
@@ -37,12 +37,20 @@ html, body{
   
 }
 
-.main_div {
- padding:3em 10px;
+.add_form{ 
+  margin: 0px;
+  padding:3px;
+  padding-bottom:10px;
 }
 
+
+.main_div {
+ padding: 3em 5px;
+}
+
+
 .footer_btn {
-  padding: 0px 10px;
+  padding: 0px 5px;
   padding-bottom:20px;
 }
 
@@ -87,6 +95,11 @@ html, body{
 }
 
 
+input{
+  width: 5em;
+}
 
-
+input[type="number"]{
+  width: 2em;
+}
 

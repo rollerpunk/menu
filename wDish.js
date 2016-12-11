@@ -6,6 +6,24 @@
 */
 
 
+
+//TODO 
+/*
+    add comment to dish
+    add dish type, its possible to have multitype,use hashteg
+    print view,use sorting by gpoups
+    change factor to out-price
+    original price for dish
+    use peices
+    alfabet sort
+    ціна бару/ change layout
+    вхід- вага
+    no price per unit in dish
+    highlite final price
+
+
+
+*/
 var priceList=[];
 var oldPrice=0;
 
@@ -17,19 +35,15 @@ function addIngr()
 {                              // use div for autocomlite
   $('#lastIng').before(' <tr class="ing2Calc"> \
                                <td><div class="ui-widget">\
-                                 <input class = "calcTriger nameIng" type="text" name="nameIng" placeholder= "Свинина" autocomplete="off" required size="30" />\
+                                 <input class = "calcTriger nameIng in_data" type="text" name="nameIng" placeholder= "Свинина" autocomplete="off" required />\
                                </div></td> \
                                <td></td>\
-                               <td><input class = "calcTriger" type= "number" name= "evalIng" min= "0" step= "1" placeholder="300" required autocomplete="off" size="4"/></td>  \
-                               <td></td>\
+                               <td><input class = "calcTriger in_data" type= "number" name= "evalIng" min= "0" step= "1" placeholder="300" required autocomplete="off"/>г</td>  \
+                               <td><input class ="in_data" type= "number" name= "outIng" min= "0" step= "1" placeholder="300" required autocomplete="off"/>г</td>\
                                <td></td>\
                                <td><div class="delBtn">X</div></td>\
                        </tr>');
-} //TODO: make filds numerable to get by name/id
-
-
-
-
+}
 
 //----------------------------------------------------
 //create object usable or JSON
@@ -50,7 +64,7 @@ function getDishObj(toJson=false)  //FIXME
     var itJson = [];
     var itObj =[];
     td.each(function() {
-       x= $(this).find('.calcTriger')
+       x= $(this).find('.in_data')
        itJson.push('"'+x.attr("name")+'":"'+x.val()+'"');
        itObj.push(x.val());
     });
@@ -73,7 +87,8 @@ function udatePrice()
 {
  //read ingredients
   var price=0;
-  var dish=getDishObj(); 
+  var dish=getDishObj();
+  var outEmt=0; 
   for (i=0;i< dish.length;i++)
   { 
 
@@ -81,10 +96,15 @@ function udatePrice()
     emount = dish[i][2]; 
     tPrice = ( priceIng * emount ) ;    // align units 
     price+=tPrice ;
+    outEmt+= dish[i][3]*1;
+
   }
   //tmpPrice is multiplied by 1000  <--- kostuli dlja js kalkyljacii
   price = (price + $("#factor").val()*1000)/1000; //need to multyply  to avoid string and stupid calculation errors
   oldPrice=price;
+
+  $("#output").val(outEmt);
+  $("#output").text(outEmt);
 
   return price;
 }
@@ -117,7 +137,7 @@ $(document).on('change', '#price', function()
 
 
 //------------------------------------
-// TODO:add dish to DB
+// add dish to DB
 //------------------------------------
 function addDish()
 {
@@ -133,15 +153,18 @@ function addDish()
   //put data to strings
   var ing="";
   var emnt="";  
+  var oemnt="";
   for (i=0;i< dish.length;i++)
   {
     ing+=dish[i][0]+"^";
     emnt+=dish[i][2]+"^";
+    oemnt+=dish[i][3]+"^";
   }
 
 
   $("#ingr").val(ing);  //TODO check if the same num of elements
-  $("#emount").val(emnt);  
+  $("#emount").val(emnt);
+  $("#emountout").val(oemnt);    
 
 //TODO: check data
 
@@ -190,9 +213,11 @@ function getPricePart2(result)
   $row=$(".td-active").closest("tr");
   $row.find("td:nth-child(2)").empty();  //select 2nd column (td)
   $row.find("td:nth-child(2)").append(priceList[ing.Name]/(ing.Unit=="кг" ? 1:1000)+" грн/"+ ing.Unit); 
-  $row.find("td:nth-child(4)").empty();
-  $row.find("td:nth-child(4)").append((ing.Unit=="кг"? "г": ing.Unit));//translate to g
+// TODO: add units ,use g for now 
+//  $row.find("td:nth-child(4)").empty();
+//  $row.find("td:nth-child(4)").append((ing.Unit=="кг"? "г": ing.Unit));//translate to g
   emount = $row.find("td:nth-child(3)").find("input").val(); //get emount of ingredient
+  $row.find("td:nth-child(4)").find("input").val(emount*60/100) // auto decrease outcome
   $row.find("td:nth-child(5)").empty();
   $row.find("td:nth-child(5)").append(emount*priceList[ing.Name]/1000+" грн"); //price per ingredient
   $(".td-active").removeClass("td-active");
@@ -234,12 +259,12 @@ function setPriceList(result) //json object
     price= ings[i]["Price"]/ings[i]["Pack"]*ings[i]["Factor"]*(ings[i]["Unit"]=="кг"? 1:1000);
     priceList[ings[i]["Name"]]=price;   
   }
-    price = udatePrice();
-    
-    if ($('#price').val() != price)
-      alert ("price updated \nold:"+$('#price').val()+"\nnew: "+price);
-    $('#price').text(price);
-    $('#price').val(price);
+  price = udatePrice();
+  
+  if ($('#price').val() != price)
+    alert ("price updated \nold:"+$('#price').val()+"\nnew: "+price);
+  $('#price').text(price);
+  $('#price').val(price);
 }
 
 //-----------------------------------------------------

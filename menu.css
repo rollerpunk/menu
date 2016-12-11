@@ -1,4 +1,4 @@
-@import url("coommon.css");
+@import url("common.css");
 
 html,body {
   height: 100%; 
@@ -19,6 +19,10 @@ input[type="number"] {  /*html5 for number inputs*/
   background-color: #AA3456;
 }
 
+.add_form{ 
+  margin: 5px;
+  padding:20px;
+}
 
 
 /*  
