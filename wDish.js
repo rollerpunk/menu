@@ -11,15 +11,13 @@
 /*
     add comment to dish
     add dish type, its possible to have multitype,use hashteg
-    print view,use sorting by gpoups
-    change factor to out-price
+    print view,use sorting by gpoups   
     original price for dish
-    use peices
-    alfabet sort
-    ціна бару/ change layout
+    use pieces
+    alphabet sort
     вхід- вага
     no price per unit in dish
-    highlite final price
+    highlight final price
 
 
 

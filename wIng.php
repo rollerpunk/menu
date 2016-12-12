@@ -11,10 +11,10 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") {
 
 // define variables from post
 $name = test_input($_POST["name"]);
-$factor = test_input($_POST["factor"]);
+$bPrice = test_input($_POST["bPrice"]);
 $pack = test_input($_POST["pack"]);
 $unit = test_input($_POST["unit"]);
-$price = test_input($_POST["price"]); //align price to monets ++
+$price = test_input($_POST["price"]);
 $btn= test_input($_POST["btn"]); 
 
 if ($unit == "г")
@@ -28,14 +28,14 @@ if ($unit == "г")
 
 switch ($btn) {
   case "addIng":
-    $sql = "INSERT INTO ingredients(Name, Price, Pack ,Unit ,Factor)   
-           VALUES ('$name','$price','$pack' ,'$unit' ,'$factor')";
+    $sql = "INSERT INTO ingredients(Name, Price, Pack ,Unit ,BarPrice)   
+           VALUES ('$name','$price','$pack' ,'$unit' ,'$bPrice')";
     break;
 
   case "editIng":
     $newName = test_input($_POST["newName"]);
     $sql="UPDATE ingredients
-          SET Price='$price', Pack='$pack',Unit='$unit',Factor='$factor',Name='$newName'
+          SET Price='$price', Pack='$pack',Unit='$unit',BarPrice='$bPrice',Name='$newName'
           WHERE Name='$name'";         
     break;
 

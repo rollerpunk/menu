@@ -18,12 +18,21 @@
 <body>
 <?php
 
+/*
+TODO:
+    alphabet sort
+	ціна бару/ change layout
+	change factor to out-price
+
+
+
+*/
+
 require "lib.php"; 
 createMenu();
 
 ?>
 <div class="main_div">
-
 
 <?php
 printIngredients();
@@ -46,8 +55,7 @@ function printIngredients()
       <th>Ціна</th>
       <th>Фасофка</th>
       <th colspan=\"2\" >Ціна за одиницю</th>
-      <th>Накрутка</th>
-      <th>Накручена ціна</th>
+      <th>Ціна бару</th>
     </tr>");
   //rows
 
@@ -62,8 +70,7 @@ function printIngredients()
       <td>".$tPack." ".$tUnit." </td>
       <td>".$tPrice." </td>
       <td>грн/".$tUnit." </td>
-      <td>".$row['Factor']." </td>
-      <td>".$tPrice*$row['Factor']." </td>
+      <td>".$row['BarPrice']." </td>
       </tr>");     
     }
     echo ("</table></div>");
@@ -83,7 +90,7 @@ function printIngredients()
    <input type="hidden" id="price" name="price">
    <input type="hidden" id="pack" name="pack">
    <input type="hidden" id="unit" name="unit">
-   <input type="hidden" id="factor" name="factor">
+   <input type="hidden" id="bPrice" name="bPrice">
 </form>
 </body>
 </html>
