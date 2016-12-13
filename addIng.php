@@ -22,33 +22,10 @@ createMenu();
 
 ?>
 <div class="main_div">
-<div class="add_form">
-<form method="post" action="wIng.php">
-  <fieldset>
-  <legend><h2>Додати інгредієнт</h2></legend>  
-  Назва:<br>
-  <input type="text" name="name" placeholder= "Картопля" autocomplete="off" required size="40"> <br>  
-  <div style="display:inline-block">
-   Фасофка:<br>
-     <input type= "number" name= "pack" min= "0" step= "0.01" placeholder="1" required autocomplete="off" size="4"/>
-     <input type="radio" name="kg" value="кг" checked autocomplete="off"><label for="kg">кг</label>
-     <input type="radio" name="g" value="г" autocomplete="off"><label for="g">гр</label>
-     <input type="radio" name="p" value="шт" autocomplete="off"><label for="p">шт</label>
-     <br>
-  </div><br>
-  <div style="display:inline-block;margin:10px">
-   Ціна:<br>
-     <input type= "number" name= "price" min= "0" step= "0.05" placeholder="10" required autocomplete="off" size="4"/> грн
-  </div> 
-   <div style="display:inline-block;margin:10px">
-   Ціна бару:<br>
-   <input type= "number" name= "bPrice" min= "0" step= "0.05" placeholder="10" required autocomplete="off" size="4"/> грн
-  </div>
-  </fieldset><br>
-  <button name="btn" value="addIng">Додати</button>
-  <button class="cancel" onclick="location.href='printIng.php';">Скасувати</button> 
-</form> 
-</div>
+<?php 
+formIng();
+?>
+
 </div>
 </body>
 

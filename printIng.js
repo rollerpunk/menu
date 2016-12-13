@@ -21,15 +21,15 @@
        pack= line[0];
        unit= line[1];
        line = $(this).find("td:nth-child(6)").text().split(" ");
-       factor=line[0];
+       bPrice=line[0];  
+	   
 
        // fill hidden form and send it to editIng.php withh post
        $('#ingName').val($(this).find("td:nth-child(1)").text());
        $('#price').val(price);
        $('#pack').val(pack);
        $('#unit').val(unit);
-       $('#factor').val(factor);
-
+       $('#bPrice').val(bPrice);
        $('#formIng').submit(); //submiin form
 
 
