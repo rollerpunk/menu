@@ -90,7 +90,7 @@ echo'
      Ціна бару:<br>
      <input type= "number" name= "bPrice" min= "1.1" step= "0.1" required autocomplete="off" size="4" value="'.$bPrice.'"/>
     </div>';
-	if ($unit != "") echo'<br><br><button class="cancel" onclick="location.href=\'printIng.php\';">Видалити</button>';
+	if ($unit != "") echo'<br><br><button class="cancel" onclick="location.href=\'printIng.php\';">Видалити інгредієнт</button>';
   echo '</fieldset><br>';
   if ($unit == "") echo '<button name="btn" value="addIng">Додати</button>'; else  echo '<button name="btn" value="editIng">Зміннити</button>';
   
@@ -99,6 +99,104 @@ echo'
 echo'</form> 
 </div>';
 	
+}
+
+//---------------------------------------------
+// dish form
+//--------------------------------------------
+function dishForm($name="")
+{
+  echo '<div class="add_form">
+  <form>
+  <fieldset>
+  <legend><h2>'.( $name == "" ? "Додати":"Змінити").' страву</h2></legend>  
+  Назва страви:<br>
+  <input type="text" id="nameDs" placeholder= "Вібивна" autocomplete="off" required  value="'.$name.'"/> <br>
+   Iнгредієнти:<br>
+   <table class="dishComp">  
+	<tr><th>Складник</th><th>Вхід</th><th>Вихід</th><th>Ціна</th></tr>';
+	
+  if ($name != "" ) // edit dish
+  { 
+	  getIngs($name);
+  }
+  else {
+  echo '<tr id="lastIng"><td colspan="3"> <button id="addIng" onclick="addIngr()">Додати інгредієнт</button></td></tr>
+     <tr>
+	  <td> Додаткова накрутка:  <input type= "number" id="factor" min= "0" step= "0.01" autocomplete="off"/></td>
+	  <td></td><th><input class= "total" type= "number" id= "output" min= "1" step= "0.01" placeholder="150" required autocomplete="off" />г</th> 
+	  <th><input type= "number" id="price" size="5"step= "0.01" autocomplete="off" /> грн</th>
+     <tr>   
+     </tr></table>';
+  }
+
+
+ 
+  echo '</fieldset><br>
+  </form>
+  <button onclick="addDish()" >'.($name == "" ? "Додати":"Змінити").'</button>
+  <button class="cancel" onclick="location.href=\'printD.php\';">Скасувати</button> 
+  </div>';
+	  
+  echo '<form method="post" action="wDish.php" id="addDish">
+	   <input type="hidden" id="dName" name="dname">
+	   <input type="hidden" id="oldName" name="oldName" value="'.$name.'">
+	   <input type="hidden" id="ingr" name="ingr">
+	   <input type="hidden" id="emount" name="emount">
+	   <input type="hidden" id="outcome" name="outcome">
+	   <input type="hidden" id="dprice" name="dprice">
+	   <input type="hidden" id="dfactor" name="dfactor">
+	   <input type="hidden" id="action" name="action" value="'.($name == "" ? "addD":"editD").'">
+	</form>';	
+	
+}
+
+
+//-----------------------------------
+// get ingredients for dish
+//-----------------------------------
+function getIngs($name)
+{
+		// it's time to get all dish data and put to the form
+	$name = test_input($name);
+	$sql = "SELECT * FROM dish WHERE Name='$name';";
+	$result=sendSql($sql);
+	$dish = $result->fetch_assoc();
+
+	//divide ingredieents to array
+	$ings= explode("^", $dish['Ingredients']);
+	$emount= explode("^", $dish['Emounts']);
+	$outEmount= explode("^", $dish['Emounts']);
+
+	for($i=0;($i+1)<count($ings);$i++)
+	{
+	  $sql = "SELECT * FROM ingredients WHERE Name='$ings[$i]';";
+	  $result=sendSql($sql);
+	  $ing = $result->fetch_assoc();
+	// calculate here
+
+	  $ppu= $ing['BarPrice']; //price per unit / g
+	  $pr = $emount[$i]*$ppu/($ing['Unit']=='кг' ? 1000 : 1);
+
+	  echo '<tr class="ing2Calc"> 
+			 <td><div class="ui-widget">
+			   <input class = "calcTriger nameIng in_data" type="text" name="nameIng" autocomplete="off" required  value="'.$ings[$i].'"/>
+			 </div></td>';// ing name
+	  echo ' <td><input class = "calcTriger in_data" type= "number" name= "evalIng" min= "0" step= "1"  required  value="'.$emount[$i].'"/></td>  '; //emount
+	  echo ' <td><input class = "in_data" type= "number" name= "evalIng" min= "0" step= "1" required   value="'.$outEmount[$i].'"/> '.($ing['Unit']=='кг' ? "г" : $ing['Unit']).'</td>'; //out emount unit
+	  echo ' <td>'.$pr.' грн</td>'; // price
+	  echo ' <td><div class="delBtn">X</div></td>
+	      </tr>';
+	}	
+	
+	 echo '<tr id="lastIng"><td colspan="3"> <button id="addIng" onclick="addIngr()">Додати інгредієнт</button></td></tr>
+     <tr>
+	  <td> Додаткова накрутка:  <input type= "number" id="factor" min= "0" step= "0.01" autocomplete="off" size="6" value="'.$dish["Factor"].'"/></td>
+	  <td></td><th><input class= "total" type= "number" id= "output" min= "1" step= "0.01" placeholder="150" required autocomplete="off" size="6" value="'.$dish["Outcome"].'"/>г</th> 
+	  <th><input type= "number" id="price" size="5"step= "0.01" autocomplete="off" value="'.$dish["Price"].'"/> грн</th>
+     <tr>   
+     </tr></table>';
+	 echo'<br><br><button class="cancel" onclick="location.href=\'printIng.php\';">Видалити страву</button>';
 }
 
 ?>

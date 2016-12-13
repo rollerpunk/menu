@@ -35,8 +35,7 @@ function addIngr()
                                <td><div class="ui-widget">\
                                  <input class = "calcTriger nameIng in_data" type="text" name="nameIng" placeholder= "Свинина" autocomplete="off" required />\
                                </div></td> \
-                               <td></td>\
-                               <td><input class = "calcTriger in_data" type= "number" name= "evalIng" min= "0" step= "1" placeholder="300" required autocomplete="off"/>г</td>  \
+                               <td><input class = "calcTriger in_data" type= "number" name= "evalIng" min= "0" step= "1" placeholder="300" required autocomplete="off"/></td>  \
                                <td><input class ="in_data" type= "number" name= "outIng" min= "0" step= "1" placeholder="300" required autocomplete="off"/>г</td>\
                                <td></td>\
                                <td><div class="delBtn">X</div></td>\
@@ -91,7 +90,7 @@ function udatePrice()
   { 
 
     priceIng = priceList[dish[i][0]];
-    emount = dish[i][2]; 
+    emount = dish[i][1]; 
     tPrice = ( priceIng * emount ) ;    // align units 
     price+=tPrice ;
     outEmt+= dish[i][3]*1;
@@ -110,7 +109,7 @@ function udatePrice()
 
 
 //--------------------------------------------
-// triger for recalculation by factor change
+// trigger for recalculation by factor change
 //--------------------------------------------
 // syntax for dynamicly created elements
 $(document).on('change', '#factor', function()
@@ -121,7 +120,7 @@ $(document).on('change', '#factor', function()
 });
 
 //----------------------------------
-// triger for recalculation by manual price change
+// trigger for recalculation by manual price change
 //----------------------------------
 // syntax for dynamicly created elements
 $(document).on('change', '#price', function()
@@ -155,8 +154,8 @@ function addDish()
   for (i=0;i< dish.length;i++)
   {
     ing+=dish[i][0]+"^";
-    emnt+=dish[i][2]+"^";
-    oemnt+=dish[i][3]+"^";
+    emnt+=dish[i][1]+"^";
+    oemnt+=dish[i][2]+"^";
   }
 
 
@@ -173,7 +172,7 @@ function addDish()
 
 
 //----------------------------------
-// triger for calculation by ingridient change
+// trigger for calculation by ingridient change
 // update price for current ingredient
 //----------------------------------
 // syntax for dynamicly created elements
@@ -206,18 +205,20 @@ function getPricePart2(result)
   //price is per kg,but we use it for grams (1000 times more)   <----kostul dlja kalkyljacii v js
 
   ing = JSON.parse(result); 
-  priceList[ing.Name] = ing.Price/ing.Pack*ing.Factor*(ing.Unit=="кг" ? 1:1000); //set factorised price*1000
+  priceList[ing.Name] = ing.BarPrice*(ing.Unit=="кг" ? 1:1000); //set factorised price*1000
 
   $row=$(".td-active").closest("tr");
-  $row.find("td:nth-child(2)").empty();  //select 2nd column (td)
-  $row.find("td:nth-child(2)").append(priceList[ing.Name]/(ing.Unit=="кг" ? 1:1000)+" грн/"+ ing.Unit); 
 // TODO: add units ,use g for now 
-//  $row.find("td:nth-child(4)").empty();
-//  $row.find("td:nth-child(4)").append((ing.Unit=="кг"? "г": ing.Unit));//translate to g
-  emount = $row.find("td:nth-child(3)").find("input").val(); //get emount of ingredient
-  $row.find("td:nth-child(4)").find("input").val(emount*60/100) // auto decrease outcome
-  $row.find("td:nth-child(5)").empty();
-  $row.find("td:nth-child(5)").append(emount*priceList[ing.Name]/1000+" грн"); //price per ingredient
+  
+  emount = $row.find("td:nth-child(2)").find("input").val(); //get emount of ingredient
+  
+  $row.find("td:nth-child(3)").contents().filter(function () {
+	  return this.nodeType === 3; 
+  }).remove();
+  $row.find("td:nth-child(3)").find("input").val(emount*60/100) // auto decrease outcome
+  $row.find("td:nth-child(3)").append(ing.Unit);
+  $row.find("td:nth-child(4)").empty();
+  $row.find("td:nth-child(4)").append(emount*priceList[ing.Name]/1000+" грн"); //price per ingredient
   $(".td-active").removeClass("td-active");
 
 //update total price
@@ -254,8 +255,8 @@ function setPriceList(result) //json object
   len = ings["length"];
   for (i=0;i<len;i++)
   {    
-    price= ings[i]["Price"]/ings[i]["Pack"]*ings[i]["Factor"]*(ings[i]["Unit"]=="кг"? 1:1000);
-    priceList[ings[i]["Name"]]=price;   
+    price= ings[i]["BarPrice"]*(ings[i]["Unit"]=="кг"? 1:1000);
+    priceList[ings[i]["Name"]]=price;   // store price
   }
   price = udatePrice();
   
