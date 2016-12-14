@@ -58,7 +58,7 @@ function formIng($name="",$unit="",$pack="",$price="",$bPrice="")
 {
 echo'
 <div class="add_form">
-<form method="post" action="wIng.php">
+<form method="post" action="wIng.php" id="ingrForm">
   <fieldset>
   <legend><h2>';
   if ($name=="") echo 'Додати інгредієнт'; else echo 'Змінити інгредієнт';
@@ -68,27 +68,25 @@ echo'
       <input type="text" name="newName" '.($name!="" ? "placeholder= \"Картопля\" autocomplete=\"off\" required":"hidden").' value="'.$name.'"/> <br>
   <div style="display:inline-block">
    Фасофка:<br>
-     <input type= "number" name= "pack" min= "0" step= "0.01" placeholder="1" required autocomplete="off" value="'.$pack.'" />';
-	if ($unit=="") echo '<input type="radio" name="unit" id="g" value="г" autocomplete="off"><label for="g">гр</label>';	 
-    echo '<input type="radio" name="unit" id= "kg" value="кг" autocomplete="off"';	 
+     <input type= "number"  class="i_triger" name= "pack" min= "0" step= "0.01" placeholder="1" required autocomplete="off" value="'.$pack.'" />';
+	if ($unit=="") echo '<input class="i_triger" type="radio" name="unit" id="g" value="г" autocomplete="off"><label for="g">гр</label>';	 
+    echo '<input type="radio" class="i_triger" name="unit" id= "kg" value="кг" autocomplete="off"';	 
 	if ($unit =='кг') echo "checked"; 
 	echo '> <label for="kg">кг</label>
-	 <input type="radio" name="unit" id= "p" value="шт" autocomplete="off"';
+	 <input type="radio" class="i_triger" name="unit" id= "p" value="шт" autocomplete="off"';
  	if ($unit =='шт') echo "checked";	
 	echo '> <label for="p">шт</label>'; 
-	
-	
 	echo '<br>
   </div><br>
   
-
   <div style="display:inline-block;margin:10px">
     Ціна:<br>
-     <input type= "number" name= "price" min= "0" step= "0.05" placeholder="10" required autocomplete="off" size="4" value="'.$price.'"/> грн<br>
+     <input type= "number" class="i_triger" name= "price" min= "0" step= "0.05" placeholder="10" required autocomplete="off" size="4" value="'.$price.'"/> грн<br>
   </div> 
-   <div style="display:inline-block;margin:10px">
-     Ціна бару:<br>
-     <input type= "number" name= "bPrice" min= "1.1" step= "0.1" required autocomplete="off" size="4" value="'.$bPrice.'"/>
+  <div id="ppu" style="display:inline-block;margin:10px"><span>0</span> грн/<span>кг</span></div> 
+  <br>
+   <div id = "bPrice" style="display:inline-block;margin:10px">
+     Ціна бару: <input type= "number" name= "bPrice" min= "1.1" step= "0.1" required autocomplete="off" size="4" value="'.$bPrice.'"/> грн/<span>кг</span>
     </div>';
 	if ($unit != "") echo'<br><br><button class="cancel" onclick="location.href=\'printIng.php\';">Видалити інгредієнт</button>';
   echo '</fieldset><br>';
@@ -125,14 +123,16 @@ function dishForm($name="")
      <tr>
 	  <td> Додаткова накрутка:  <input type= "number" id="factor" min= "0" step= "0.01" autocomplete="off"/></td>
 	  <td></td><th><input class= "total" type= "number" id= "output" min= "1" step= "0.01" placeholder="150" required autocomplete="off" />г</th> 
-	  <th><input type= "number" id="price" size="5"step= "0.01" autocomplete="off" /> грн</th>
-     <tr>   
-     </tr></table>';
+	  <th><input type= "number" id="price" size="5"step= "0.01" autocomplete="off" /> грн</th>       
+     </tr>
+	 <tr><td colspan="5">Нотатки:<br><textarea name="notes" rows="6" cols="50"></textarea></td></tr>
+	 </table>';
   }
 
 
- 
-  echo '</fieldset><br>
+  
+  echo '
+  </fieldset><br>
   </form>
   <button onclick="addDish()" >'.($name == "" ? "Додати":"Змінити").'</button>
   <button class="cancel" onclick="location.href=\'printD.php\';">Скасувати</button> 
@@ -147,6 +147,7 @@ function dishForm($name="")
 	   <input type="hidden" id="dprice" name="dprice">
 	   <input type="hidden" id="dfactor" name="dfactor">
 	   <input type="hidden" id="action" name="action" value="'.($name == "" ? "addD":"editD").'">
+	   <textarea hidden name="dnotes"></textarea>
 	</form>';	
 	
 }
@@ -193,9 +194,10 @@ function getIngs($name)
      <tr>
 	  <td> Додаткова накрутка:  <input type= "number" id="factor" min= "0" step= "0.01" autocomplete="off" size="6" value="'.$dish["Factor"].'"/></td>
 	  <td></td><th><input class= "total" type= "number" id= "output" min= "1" step= "0.01" placeholder="150" required autocomplete="off" size="6" value="'.$dish["Outcome"].'"/>г</th> 
-	  <th><input type= "number" id="price" size="5"step= "0.01" autocomplete="off" value="'.$dish["Price"].'"/> грн</th>
-     <tr>   
-     </tr></table>';
+	  <th><input type= "number" id="price" size="5"step= "0.01" autocomplete="off" value="'.$dish["Price"].'"/> грн</th>      
+     </tr>
+	 <tr><td colspan="5">Нотатки:<br><textarea name="notes" rows="6" cols="50">'.$dish["Notes"].'</textarea></td></tr>
+	 </table>';
 	 echo'<br><br><button class="cancel" onclick="location.href=\'printIng.php\';">Видалити страву</button>';
 }
 

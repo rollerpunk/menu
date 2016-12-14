@@ -18,7 +18,9 @@
 
 <script type="text/javascript">
 
-$(function(){ // we have dynamic page. wait until it loads
+$(function(){ 
+  // action at load
+  // we have dynamic page. wait until it loads
   var dish=getDishObj();
   list=""; 
   for (i=0;i< dish.length;i++)

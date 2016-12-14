@@ -12,6 +12,8 @@
 
   <script src="jquery-1.12.4.js"></script>
   <script type="text/javascript" src="common.js"></script>
+  <script type="text/javascript" src="wIng.js"></script>
+
 </head>
 
 <body>

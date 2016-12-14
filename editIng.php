@@ -10,7 +10,19 @@
 
   <script src="jquery-1.12.4.js"></script>
   <script type="text/javascript" src="common.js"></script>
+  <script type="text/javascript" src="wIng.js"></script>
+  
+  <script type="text/javascript">
+
+  $(function(){ 
+  // action at load
+  // we have dynamic page. wait until it loads  
+    getPpu();
+  });
+  </script>
 </head>
+
+
 
 
 <body>
