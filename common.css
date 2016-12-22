@@ -144,6 +144,11 @@ button.cancel  /* buttons decoration*/
   height: 100px;
 }
 
+textarea{
+  width:100%;
+  resize: none;
+}
+
 /*------------------------------------------
 ---------------------------------------------*/
 

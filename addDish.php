@@ -29,8 +29,7 @@ createMenu();
 <div class="main_div">
 
 <?php
-$name = test_input($_POST["name"]);
-dishForm($name);
+dishForm();
 ?>
 
 </div>

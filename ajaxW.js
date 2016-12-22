@@ -80,6 +80,9 @@ function resultHandler(result,action)
     case "getPriceList":
       setPriceList(result);
       break;
+    case "getIngredient":
+      getPricePart2(result);
+      break;
 
     default:
       alert("Not supported action:"+action);

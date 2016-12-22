@@ -32,12 +32,14 @@ function dishDetailPart2(result)
   ing= data.Ingredients.split("^"); // should be the same length
   emount= data.Emounts.split("^"); // checked before write wtrite to db
   
+  
   str='<tr class="dish_details" > <td colspan="3" > <table> ';
   for (i=0;i<ing.length-1;i++) //there is extra separator. just ignore last element
   {
+    
     str+="<tr><td>"+ing[i]+"</td><td>"+emount[i]+" г</td></tr>"
   }
-  str+="</table></td></tr>";
+  str+='<tr><td colspan="3">Нотатки:<br><textarea rows="6" cols="50" readonly >'+data.Notes+'</textarea></td></tr></table></td></tr>';
   $row=$(".tr-active"); //find active row
   // insert details       
   $row.after(str);

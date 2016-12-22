@@ -145,6 +145,9 @@ function addDish()
   $("#outcome").val($("#output").val()); 
   $("#dprice").val($("#price").val()); 
   $("#dfactor").val($("#factor").val()); 
+  $("#dnotes").val($("#notes").val()); 
+
+//alert ($("#dnotes").val());
 
   var dish=getDishObj(); 
   //put data to strings
