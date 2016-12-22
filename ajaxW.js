@@ -139,5 +139,51 @@ function handleError(msg)
 
 
 
+//--------------------------------------
+// get ingridient
+//--------------------------------------
+function getIngJsonDB(item)
+{
+  url ="ajaxW.php";
+  request = 'ordercode=getPrice&table=Ingredients&name='+item;
+  if (window.XMLHttpRequest)
+    { xmlhttp=new XMLHttpRequest();}  /*code for IE7+, Firefox, Chrome, Opera, Safari*/  
+  else
+    { xmlhttp=new ActiveXObject("Microsoft.XMLHTTP"); } // code for IE6, IE5
+   
+  xmlhttp.open("POST",url,true);
+  xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); // to send GET-like data in POST    //xmlhttp.open("GET",url+"?"+the_data,false);
+  xmlhttp.send(request);
 
+
+
+  xmlhttp.onreadystatechange=function()
+  {
+    if (xmlhttp.readyState==4) 
+    {
+      if(xmlhttp.status==200)
+      {
+//------SUCCESS------------
+        clearTimeout(timeout);
+        //do thomething with result
+        result =  xmlhttp.responseText; 
+        return result;
+      }
+      else
+      {
+        handleError("Errod during reading DB\n status: "+xmlhttp.statusText+"\n status# : "+xmlhttp.status+"\n state: "+xmlhttp.readyState+"\n response: " + xmlhttp.responseText); // error
+        clearTimeout(timeout);
+        return false;
+      }
+    }
+  }
+  //we may receive wrong answers let's wait for a while 
+  var timeout = setTimeout( function()
+  { 
+    xmlhttp.abort(); 
+    handleError("DB response timeout") 
+    return false;
+  }, 15000);//timeout for 15sec 
+  return true;
+}
 
