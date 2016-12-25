@@ -27,17 +27,15 @@ $(document).on('click', 'tr.passive', function()
 // receive json of ingredients
 function dishDetailPart2(result)
 {  
-
+//alert (result);
   data = JSON.parse(result); 
-  ing= data.Ingredients.split("^"); // should be the same length
-  emount= data.Emounts.split("^"); // checked before write wtrite to db
+
+  nOfIngs = data.nOfIngs;  
   
-  
-  str='<tr class="dish_details" > <td colspan="3" > <table> ';
-  for (i=0;i<ing.length-1;i++) //there is extra separator. just ignore last element
+  str='<tr class="dish_details" > <td > <table> ';
+  for (i=0;i<nOfIngs;i++) //there is extra separator. just ignore last element
   {
-    ingJSON = getIngJsonDB(ing[i]);
-    str+="<tr><td>"+ing[i]+"</td><td>"+emount[i]+" "+ingJSON.Unit+"</td></tr>"
+    str+="<tr><td>"+data.Ings[i].Name+"</td><td>"+data.Ings[i].Emount+" "+(data.Ings[i].Unit == "кг" ? "г" : data.Ings[i].Unit)+"</td></tr>"
   }
   str+='<tr><td colspan="3">Нотатки:<br><textarea rows="6" cols="50" readonly >'+data.Notes+'</textarea></td></tr></table></td></tr>';
   $row=$(".tr-active"); //find active row

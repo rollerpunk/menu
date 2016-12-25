@@ -85,7 +85,6 @@ function udatePrice()
  //read ingredients
   var price=0;
   var dish=getDishObj();
-  var outEmt=0; 
   for (i=0;i< dish.length;i++)
   { 
 
@@ -93,15 +92,11 @@ function udatePrice()
     emount = dish[i][1]; 
     tPrice = ( priceIng * emount ) ;    // align units 
     price+=tPrice ;
-    outEmt+= dish[i][3]*1;
 
   }
   //tmpPrice is multiplied by 1000  <--- kostuli dlja js kalkyljacii
   price = (price + $("#factor").val()*1000)/1000; //need to multyply  to avoid string and stupid calculation errors
   oldPrice=price;
-
-  $("#output").val(outEmt);
-  $("#output").text(outEmt);
 
   return price;
 }
@@ -134,42 +129,42 @@ $(document).on('change', '#price', function()
 
 
 //------------------------------------
-// add dish to DB
+// add dish to DB as JSON object
 //------------------------------------
-function addDish()
+function addDishJson()
 {
 
-  
-  //copy data to form
-  $("#dName").val( $("#nameDs").val());
-  $("#outcome").val($("#output").val()); 
-  $("#dprice").val($("#price").val()); 
-  $("#dfactor").val($("#factor").val()); 
-  $("#dnotes").val($("#notes").val()); 
-
-//alert ($("#dnotes").val());
+  jDish="{ ";
+  jDish+="\"Name\":\""+$("#nameDs").val()+"\",";
+  jDish+="\"Price\" : \""+$("#price").val()+"\" ,";
+  jDish+="\"Outcome\":\""+$("#output").val()+"\",";
+  jDish+="\"Factor\":\""+$("#factor").val()+"\",";
 
   var dish=getDishObj(); 
   //put data to strings
-  var ing="";
-  var emnt="";  
-  var oemnt="";
+  var ing="[";
+  var emnt="[";  
+  var oemnt="[";
   for (i=0;i< dish.length;i++)
   {
-    ing+=dish[i][0]+"^";
-    emnt+=dish[i][1]+"^";
-    oemnt+=dish[i][2]+"^";
+    ing+="\""+dish[i][0]+"\",";
+    emnt+="\""+dish[i][1]+"\",";
+    oemnt+="\""+dish[i][2]+"\",";
   }
+  // replace last , with ]
+  ing = ing.replace(/.$/,"]");
+  emnt = emnt.replace(/.$/,"]");
+  oemnt = oemnt.replace(/.$/,"]");
+ 
+  jDish+="\"Ingredients\":"+ing+",";  
+  jDish+="\"Emounts\":"+emnt+",";
+  jDish+="\"OutEmounts\":"+oemnt+",";
+  jDish+="\"Notes\":\""+$("#notes").val()+"\"}";
 
-
-  $("#ingr").val(ing);  //TODO check if the same num of elements
-  $("#emount").val(emnt);
-  $("#emountout").val(oemnt);    
-
+  $("#dish").val(jDish);   
 //TODO: check data
-
-  $('#addDish').submit(); //submiin form
-
+  $('#addDish').submit(); //submit form
+  
 }
 
 
@@ -219,7 +214,7 @@ function getPricePart2(result)
 	  return this.nodeType === 3; 
   }).remove();
   $row.find("td:nth-child(3)").find("input").val(emount*60/100) // auto decrease outcome
-  $row.find("td:nth-child(3)").append(ing.Unit);
+  $row.find("td:nth-child(3)").append((ing.Unit == "кг" ? "г" : ing.Unit));
   $row.find("td:nth-child(4)").empty();
   $row.find("td:nth-child(4)").append(emount*priceList[ing.Name]/1000+" грн"); //price per ingredient
   $(".td-active").removeClass("td-active");

@@ -130,13 +130,14 @@ function dishForm($name="")
   echo '
   </fieldset><br>
   </form>
-  <button onclick="addDish()" >'.($name == "" ? "Додати":"Змінити").'</button>
+  <button onclick="addDishJson()" >'.($name == "" ? "Додати":"Змінити").'</button>
   <button class="cancel" onclick="location.href=\'printD.php\';">Скасувати</button> 
   </div>';
 	  
   echo '<form method="post" action="wDish.php" id="addDish">
 	   <input type="hidden" id="dName" name="dname">
 	   <input type="hidden" id="oldName" name="oldName" value="'.$name.'">
+	   <input type="hidden" id="dish" name="dish">
 	   <input type="hidden" id="ingr" name="ingr">
 	   <input type="hidden" id="emount" name="emount">
 	   <input type="hidden" id="emountout" name="emountout">
@@ -161,12 +162,12 @@ function getIngs($name)
 	$result=sendSql($sql);
 	$dish = $result->fetch_assoc();
 
-	//divide ingredieents to array
-	$ings= explode("^", $dish['Ingredients']);
-	$emount= explode("^", $dish['Emounts']);
-	$outEmount= explode("^", $dish['OutEmounts']);
+//divide ingredieents to array
+  $ings = unserialize($dish['Ingredients']);
+  $emount = unserialize($dish['Emounts']); // input emount of ingredients
+  $outEmount = unserialize($dish['OutEmounts']);  // outcome emount of ingredients
 
-	for($i=0;($i+1)<count($ings);$i++)
+	for($i=0;$i<count($ings);$i++)
 	{
 	  $sql = "SELECT * FROM ingredients WHERE Name='$ings[$i]';";
 	  $result=sendSql($sql);
@@ -174,7 +175,7 @@ function getIngs($name)
 	// calculate here
 
 	  $ppu= $ing['BarPrice']; //price per unit / g
-	  $pr = $emount[$i]*$ppu/($ing['Unit']=='кг' ? 1000 : 1);
+	  $pr = $emount[$i]*$ppu/($ing['Unit'] == 'кг' ? 1000 : 1);
 
 	  echo '<tr class="ing2Calc"> 
 			 <td><div class="ui-widget">
@@ -190,7 +191,7 @@ function getIngs($name)
 	 echo '<tr id="lastIng"><td colspan="3"> <button id="addIng" onclick="addIngr()">Додати інгредієнт</button></td></tr>
      <tr>
 	  <td colspan="2"> Додаткова накрутка:  <input type= "number" id="factor" min= "0" step= "0.01" autocomplete="off" size="6" value="'.$dish["Factor"].'"/></td>
-	  <th><input class= "total" type= "number" id= "output" min= "1" step= "0.01" placeholder="150" required autocomplete="off" size="6" value="'.$dish["Outcome"].'"/>г</th> 
+	  <th><input type= "number" id="output" step= "1" autocomplete="off" required value="'.$dish["Outcome"].'"/> г</th> 
 	  <th><input type= "number" id="price" size="5"step= "0.01" autocomplete="off" value="'.$dish["Price"].'"/> грн</th>      
      </tr>
 	 <tr><td colspan="5">Нотатки:<br><textarea form="myform" id="notes" name="notes" rows="6" cols="50">'.$dish["Notes"].'</textarea></td></tr>
