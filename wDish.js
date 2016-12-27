@@ -22,6 +22,21 @@
 
 
 */
+
+$(function(){ // we have dynamic page. wait until it loads
+
+
+    var config = {
+      '.chosen-select'           : {},
+      '.chosen-select-deselect'  : {allow_single_deselect:true},
+      '.chosen-select-no-single' : {disable_search_threshold:10},
+      '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
+      '.chosen-select-width'     : {width:"95%"}
+    }   
+
+    $("#dType").chosen(config);
+});
+
 var priceList=[];
 var oldPrice=0;
 
@@ -129,7 +144,7 @@ $(document).on('change', '#price', function()
 
 
 //------------------------------------
-// add dish to DB as JSON object
+// add dish to DB.  Using JSON object
 //------------------------------------
 function addDishJson()
 {
@@ -159,7 +174,8 @@ function addDishJson()
   jDish+="\"Ingredients\":"+ing+",";  
   jDish+="\"Emounts\":"+emnt+",";
   jDish+="\"OutEmounts\":"+oemnt+",";
-  jDish+="\"Notes\":\""+$("#notes").val()+"\"}";
+  jDish+="\"Notes\":\""+$("#notes").val()+"\",";
+  jDish+="\"Type\":\""+$("#dType").val()+"\"}";
 
   $("#dish").val(jDish);   
 //TODO: check data

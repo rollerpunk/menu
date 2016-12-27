@@ -41,7 +41,7 @@ printDishlist();
 function printDishlist()
 {
 
-  $result=sendSql("SELECT * FROM dish"); 
+  $result=sendSql("SELECT * FROM dish ORDER BY Name ASC;"); 
 
   if($result->num_rows > 0)
   {
@@ -51,7 +51,8 @@ function printDishlist()
     <tr>
       <th>Страва</th>
       <th>Вихід</th>
-      <th>Ціна</th>   
+      <th>Ціна</th> 
+      <th>Тип</th>  
     </tr>");
   //rows
 

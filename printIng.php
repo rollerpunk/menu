@@ -41,7 +41,7 @@ printIngredients();
 //----------------------------------------
 function printIngredients()
 {
-  $result = sendSql("SELECT * FROM ingredients"); 
+  $result = sendSql("SELECT * FROM ingredients ORDER BY Name ASC;"); 
 
   if($result->num_rows > 0)
   {

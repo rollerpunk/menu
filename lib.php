@@ -103,10 +103,11 @@ function dishForm($name="")
   echo '<div class="add_form">
   <form name="myform">
   <fieldset>
-  <legend><h2>'.( $name == "" ? "Додати":"Змінити").' страву</h2></legend>  
+  <legend><h2>'.( $name == "" ? "Додати":"Змінити").' страву</h2></legend> 
   Назва страви:<br>
-  <input type="text" id="nameDs" placeholder= "Вібивна" autocomplete="off" required  value="'.$name.'"/> <br>
-   Iнгредієнти:<br>
+  <input type="text" id="nameDs" placeholder= "Вібивна" autocomplete="off" required  value="'.$name.'"/> 
+  <br>
+  Iнгредієнти:<br>
    <table class="dishComp">  
 	<tr><th>Складник</th><th>Вхід</th><th>Вихід</th><th>Ціна</th></tr>';
 	
@@ -121,7 +122,16 @@ function dishForm($name="")
 	  <th><input class= "total" type= "number" id= "output" min= "1" step= "0.01" placeholder="150" required autocomplete="off" />г</th> 
 	  <th><input type= "number" id="price" size="5"step= "0.01" autocomplete="off" /> грн</th>       
      </tr>
-	 <tr><td colspan="5">Нотатки:<br><textarea id="notes" form="myform" name="notes" rows="6" cols="50"></textarea></td></tr>
+	 <tr><td colspan="5">
+    <select multiple id="dType" name="type" data-placeholder="Тип страви..." class="chosen-select" autocomplete="off"  style="width:100%;">
+      <option value="перше">Перше</option>
+      <option value="риба">Риба</option>
+      <option value="курка">Курка</option>
+      <option value="мясо">Мясо</option>
+    </select> 
+    <br>
+    Нотатки:<br><textarea id="notes" form="myform" name="notes" rows="6" cols="50"></textarea>
+   </td></tr>
 	 </table>';
   }
 
@@ -135,16 +145,8 @@ function dishForm($name="")
   </div>';
 	  
   echo '<form method="post" action="wDish.php" id="addDish">
-	   <input type="hidden" id="dName" name="dname">
 	   <input type="hidden" id="oldName" name="oldName" value="'.$name.'">
 	   <input type="hidden" id="dish" name="dish">
-	   <input type="hidden" id="ingr" name="ingr">
-	   <input type="hidden" id="emount" name="emount">
-	   <input type="hidden" id="emountout" name="emountout">
-	   <input type="hidden" id="outcome" name="outcome">
-	   <input type="hidden" id="dprice" name="dprice">
-	   <input type="hidden" id="dfactor" name="dfactor">
-     <input type="hidden" id="dnotes" name="dnotes">
 	   <input type="hidden" id="action" name="action" value="'.($name == "" ? "addD":"editD").'">
 	</form>';	
 	
@@ -158,7 +160,7 @@ function getIngs($name)
 {
 		// it's time to get all dish data and put to the form
 	$name = test_input($name);
-	$sql = "SELECT * FROM dish WHERE Name='$name';";
+	$sql = "SELECT * FROM dish WHERE Name='$name' ORDER BY Name ASC;";
 	$result=sendSql($sql);
 	$dish = $result->fetch_assoc();
 
@@ -194,7 +196,16 @@ function getIngs($name)
 	  <th><input type= "number" id="output" step= "1" autocomplete="off" required value="'.$dish["Outcome"].'"/> г</th> 
 	  <th><input type= "number" id="price" size="5"step= "0.01" autocomplete="off" value="'.$dish["Price"].'"/> грн</th>      
      </tr>
-	 <tr><td colspan="5">Нотатки:<br><textarea form="myform" id="notes" name="notes" rows="6" cols="50">'.$dish["Notes"].'</textarea></td></tr>
+	 <tr><td colspan="5">
+    <select multiple id="dType" name="type" data-placeholder="Тип страви..." class="chosen-select" autocomplete="off"  style="width:100%;">
+      <option value="перше">Перше</option>
+      <option value="риба">Риба</option>
+      <option value="курка">Курка</option>
+      <option value="мясо">Мясо</option>
+    </select> 
+    <br> 
+    Нотатки:<br><textarea form="myform" id="notes" name="notes" rows="6" cols="50">'.$dish["Notes"].'</textarea>
+   </td></tr>
 	 </table>';
 	 echo'<br><br><button class="cancel" onclick="location.href=\'printIng.php\';">Видалити страву</button>';
 }
@@ -208,7 +219,7 @@ function getIngs($name)
 function getJsonDish($name)
 {
 
-    $sql = "SELECT * FROM dish WHERE Name='$name';";
+    $sql = "SELECT * FROM dish WHERE Name='$name' ;";
     $result=sendSql($sql);
     $dish = $result->fetch_assoc();
    

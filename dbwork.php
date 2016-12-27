@@ -14,6 +14,9 @@ function dbConnect($server="localhost",$db="menu-web",$user="menu",$pass="menu")
   if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
   }
+
+
+  
   return $conn; 
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 }// NB: don't forget to close a connection with   $conn->close();
@@ -25,7 +28,13 @@ function dbConnect($server="localhost",$db="menu-web",$user="menu",$pass="menu")
 //----------------------------
 function sendSql($sql)
 {
+
   $conn=dbConnect();
+
+  $conn->query("SET NAMES 'utf8';");
+  $conn->query("SET CHARACTER SET 'utf8';");
+  $conn->query("SET SESSION collation_connection = 'utf8_general_ci';");
+
   $result = $conn->query($sql);
   if (!$result)
   {
