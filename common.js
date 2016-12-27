@@ -36,15 +36,21 @@ function setActiveMenu()
         $(".titlePage").append("Страви");
         page="printD.php";
         break;
+
+    case "print.php":
+      $(".titlePage").append("Друк");
+      page="print.php";
+      break;
+   
     //add other pages too
 
-   
     default:
-     alert ("warning: \nadd page to menu handler:\n"+page);
+     alert ("[common.js] warning: \nadd page to menu handler:\n"+page);
      $(".titlePage").append(page);
      return;
   }
   
+
   $(".left_menu a").each(function(){ 
     if ( page == this.getAttribute('href', 2))
     {

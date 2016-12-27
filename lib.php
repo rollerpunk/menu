@@ -24,7 +24,7 @@ function createMenu()
          <ul>
           <li><a href="printD.php">Страви</a></li>
           <li><a href="printIng.php">Інгредієнти</a></li>
-          <li><a href="feddback.php">Відгук</a></li>
+          <li><a href="print.php">Друк</a></li>
           <li><a href="about.html">Допомога</a></li>
         </ul>
         </div>
@@ -37,7 +37,7 @@ function createMenu()
          <ul>
           <li><a href="printD.php">Страви</a></li>
           <li><a href="printIng.php">Інгредієнти</a></li>
-          <li><a href="feddback.php">Відгук</a></li>
+          <li><a href="print.php">Друк</a></li>
           <li><a href="about.html">Допомога</a></li>
         </ul>
         </div>
@@ -198,6 +198,52 @@ function getIngs($name)
 	 </table>';
 	 echo'<br><br><button class="cancel" onclick="location.href=\'printIng.php\';">Видалити страву</button>';
 }
+
+
+
+
+//-------------------------------
+// get dish json from DB
+//-------------------------------
+function getJsonDish($name)
+{
+
+    $sql = "SELECT * FROM dish WHERE Name='$name';";
+    $result=sendSql($sql);
+    $dish = $result->fetch_assoc();
+   
+    $ings = unserialize($dish['Ingredients']);
+    $emount = unserialize($dish['Emounts']); // input emount of ingredients
+    $emountout= unserialize($dish['OutEmounts']);  // outcome emount of ingredients
+
+    // remove because those fields will be represented in other place below
+    unset($dish['Ingredients']);
+    unset($dish['Emounts']);
+    unset($dish['OutEmounts']);
+
+    $nofings = count($ings);
+
+    $jing=[];
+    $tprice=0;
+    for ($i=0 ; $i < $nofings; $i++) // get/set data for each ingridient
+    {
+      $sql = "SELECT * FROM ingredients WHERE Name='".$ings[$i]."';";
+      $result = sendSql($sql);
+      $row = $result->fetch_assoc();
+      $row['Emount'] = $emount[$i];
+      $row['OutEmount'] = $emountout[$i];      
+      $tprice += $row['Emount'] * $row['BarPrice'] / ($row['Unit'] == 'кг' ? 1000 : 1); // price per ing
+
+      $jing[] = $row; //put to array of ings
+    }
+    $tprice += $dish['Factor']*1;
+    $dish['tPrice'] =  $tprice;
+    $dish['Ings'] = $jing;
+    $dish['nOfIngs']=$nofings;
+
+    return json_encode($dish,JSON_UNESCAPED_UNICODE );  //create  json for dish
+}
+
 
 ?>
 

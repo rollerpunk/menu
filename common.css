@@ -149,7 +149,67 @@ textarea{
   resize: none;
 }
 
+
+.print_table{
+  border-collapse: collapse;
+  border-spacing: 0;
+  white-space: nowrap;
+}
+
+.print_table tr, td, th{
+  border: 1px solid #ddd;
+  padding-left: 3px;
+}
+
+.print_ing_list tr, td, th{
+  border: 1px solid #ddd;
+
+}
+
+.print_ing_list{
+  font-size: 70%;
+  padding-left: 7px !important;
+}
+
+.dish_print_name{
+  background-color:#ddd;
+  padding-top:7px;
+}
+
+
+div.header_table {
+  position: fixed;
+  top: 0;
+}
+
+
+
+
+
+
 /*------------------------------------------
+print
 ---------------------------------------------*/
+
+@media print {
+  .nav_menu, .footer_btn {
+    display: none;
+  }
+
+  table {
+    page-break-inside: avoid !important;
+  }
+
+
+
+}
+
+@page {
+   size: 21cm 29.7cm;
+   margin: 5mm 5mm 5mm 5mm;
+}
+
+
+
 
 
