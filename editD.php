@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <head> 
-  <title>Додати страву</title>
+  <title>Змінити страву</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <link rel="icon" href="menu.png" type="image/x-icon">
 
@@ -19,8 +19,6 @@
   <script type="text/javascript" src="ajaxW.js"></script>
   <script type="text/javascript" src="wDish.js"></script>
   <script type="text/javascript" src="common.js"></script>
-
-  <script src="chosen.proto.min.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 

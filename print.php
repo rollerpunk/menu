@@ -63,7 +63,7 @@ function printDishlist()
 
       // print dish
       echo "<table class='print_table'> 
-        <tr><td colspan=\"3\" color=\"white\"> . </td></tr>
+
         <tr class= \"dish_print_name\">        
           <td>".$dish['Name']." </td>
           <td>".$dish['Outcome']." г</td>
