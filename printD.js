@@ -32,12 +32,12 @@ function dishDetailPart2(result)
 
   nOfIngs = data.nOfIngs;  
   
-  str='<tr class="dish_details" > <td > <table> ';
+  str='<tr class="dish_details" > <td colspan="2"> <table> ';
   for (i=0;i<nOfIngs;i++) //there is extra separator. just ignore last element
   {
     str+="<tr><td>"+data.Ings[i].Name+"</td><td>"+data.Ings[i].Emount+" "+(data.Ings[i].Unit == "кг" ? "г" : data.Ings[i].Unit)+"</td></tr>"
   }
-  str+='<tr><td colspan="3">Нотатки:<br><textarea rows="6" cols="50" readonly >'+data.Notes+'</textarea></td></tr></table></td></tr>';
+  str+='<tr><td colspan="3"><u>Нотатки:</u><br><div >'+data.Notes.replace(/\n/g, "<br>")+'</div></td></tr></table></td></tr>';
   $row=$(".tr-active"); //find active row
   // insert details       
   $row.after(str);

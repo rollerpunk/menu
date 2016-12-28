@@ -123,6 +123,7 @@ function dishForm($name="")
 	  <th><input type= "number" id="price" size="5"step= "0.01" autocomplete="off" /> грн</th>       
      </tr>
 	 <tr><td colspan="5">
+    Тип: <br>
     <select multiple id="dType" name="type" data-placeholder="Тип страви..." class="chosen-select" autocomplete="off"  style="width:100%;">
       <option value="перше">Перше</option>
       <option value="риба">Риба</option>
@@ -197,11 +198,12 @@ function getIngs($name)
 	  <th><input type= "number" id="price" size="5"step= "0.01" autocomplete="off" value="'.$dish["Price"].'"/> грн</th>      
      </tr>
 	 <tr><td colspan="5">
+    Тип: <br>
     <select multiple id="dType" name="type" data-placeholder="Тип страви..." class="chosen-select" autocomplete="off"  style="width:100%;">
-      <option value="перше">Перше</option>
-      <option value="риба">Риба</option>
-      <option value="курка">Курка</option>
-      <option value="мясо">Мясо</option>
+      <option value="перше" '.( strpos($dish['Type'],"перше") === FALSE ? "" : "selected" ).'>Перше</option>
+      <option value="риба" '.( strpos($dish['Type'],"риба") === FALSE ? "" : "selected" ).'>Риба</option>
+      <option value="курка" '.( strpos($dish['Type'],"курка") === FALSE ? "" : "selected" ).'>Курка</option>
+      <option value="мясо" '.( strpos($dish['Type'],"мясо") === FALSE ? "" : "selected"  ).'>Мясо</option>
     </select> 
     <br> 
     Нотатки:<br><textarea form="myform" id="notes" name="notes" rows="6" cols="50">'.$dish["Notes"].'</textarea>

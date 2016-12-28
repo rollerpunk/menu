@@ -32,10 +32,22 @@ $(function(){ // we have dynamic page. wait until it loads
       '.chosen-select-no-single' : {disable_search_threshold:10},
       '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
       '.chosen-select-width'     : {width:"95%"}
-    }   
+    }
 
-    $("#dType").chosen(config);
+
+
+   $("#dType").chosen(config);
+    
+
 });
+
+
+function setTags(values)
+{
+ $.each(values.split(","), function(i,e){
+      $("#dType option[value='" + e + "']").prop("selected", true);
+    });
+}
 
 var priceList=[];
 var oldPrice=0;

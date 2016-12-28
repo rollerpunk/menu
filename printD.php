@@ -62,6 +62,8 @@ function printDishlist()
       <td>".$row['Name']." </td>
       <td>".$row['Outcome']." г</td>
       <td>".$row['Price']." грн </td>
+      <td>".$row['Type']."</td>
+      
       </tr>");     
     }
     echo ("</table></div>");

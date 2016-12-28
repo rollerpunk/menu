@@ -182,7 +182,11 @@ div.header_table {
   top: 0;
 }
 
-
+.dish_details 
+{
+  padding-left: 10px;
+  font-size: 70%;
+}
 
 
 
