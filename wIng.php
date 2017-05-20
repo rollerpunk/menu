@@ -30,13 +30,19 @@ switch ($btn) {
   case "addIng":
     $sql = "INSERT INTO ingredients(Name, Price, Pack ,Unit ,BarPrice)   
            VALUES ('$name','$price','$pack' ,'$unit' ,'$bPrice')";
+    sendSql($sql);
     break;
 
   case "editIng":
     $newName = test_input($_POST["newName"]);
     $sql="UPDATE ingredients
           SET Price='$price', Pack='$pack',Unit='$unit',BarPrice='$bPrice',Name='$newName'
-          WHERE Name='$name'";         
+          WHERE Name='$name'";
+    sendSql($sql);
+
+    updateDish($name,$newName);
+    
+    //update dishes
     break;
 
   case "del":
@@ -47,7 +53,6 @@ switch ($btn) {
     header( "Location: printIng.php" );
 }
 
-sendSql($sql);
 
 echo ("done");
 header( "Location: printIng.php" ); //go to ingredients view TODO: we als may go to menu or dish list

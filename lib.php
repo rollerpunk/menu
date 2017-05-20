@@ -258,6 +258,62 @@ function getJsonDish($name)
 }
 
 
+function updateDish($iName,$nName)
+{
+  $sql = "SELECT * FROM dish WHERE Ingredients LIKE '$iName';";
+  $result = sendSql($sql);
+  
+  while ($row = $result->fetch_assoc())
+  {
+    if ($iName != $nName)
+    {
+      $ings = unserialize($row['Ingredients']);
+      // find element that need to be changed
+      for ($i=0;$i < count($ings);$i++)
+      {
+        if($ings[$i] == $iName)
+        {
+          $ings[$i] = $nName;
+
+          $row['Ingredients'] = serialize($ings); // ingredients
+          break;
+        }
+      }
+    }
+
+    $row['Price'] =calculateDish($row); 
+   
+  }   
+}
+
+
+function calculateDish($dish)
+{
+
+  $ings = unserialize($dish['Ingredients']);
+  $emount = unserialize($dish['Emounts']); // input emount of ingredients
+
+  $nofings = count($ings);
+
+  $jing=[];
+  $tprice=0;
+  for ($i=0 ; $i < $nofings; $i++) // get/set data for each ingridient
+  {
+    $sql = "SELECT * FROM ingredients WHERE Name='".$ings[$i]."';";
+    $result = sendSql($sql);
+    $row = $result->fetch_assoc();
+    $row['Emount'] = $emount[$i];
+
+    $tprice += $row['Emount'] * $row['BarPrice'] / ($row['Unit'] == 'кг' ? 1000 : 1); // price per ing
+
+  }
+  $tprice += $dish['Factor']*1;
+  return $tprice;
+
+}
+
+
+
 ?>
 
 

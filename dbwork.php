@@ -35,6 +35,20 @@ function sendSql($sql)
   $conn->query("SET CHARACTER SET 'utf8';");
   $conn->query("SET SESSION collation_connection = 'utf8_general_ci';");
 
+  //logging
+/*  if ((strpos($sql,"INSERT") === FALSE ) && (strpos($sql,"UPDATE") === FALSE ))
+  {
+     echo "str=". $sql;
+     exit();
+  }
+  else
+    if (!$conn->query("INSERT INTO logs (Who, What) VALUES (user ,'.$sql.';"))
+    {
+      echo $conn->error;
+      exit();
+    }
+*/
+
   $result = $conn->query($sql);
   if (!$result)
   {

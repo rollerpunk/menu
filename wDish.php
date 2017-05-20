@@ -53,10 +53,10 @@ switch ($btn) {
     echo ("wrong order code !!". $btn);
 }
 
-//echo $sql;
-sendSql($sql);
-header( "Location: printD.php" ); //go to ingredients view TODO: we also may go to menu or dish list
 
+sendSql($sql);
+ header( "Location: printD.php" ); //go to ingredients view TODO: we also may go to menu or dish list
+ echo $sql;
 
 
 ?>
