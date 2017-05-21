@@ -39,11 +39,8 @@ switch ($btn) {
           SET Price='$price', Pack='$pack',Unit='$unit',BarPrice='$bPrice',Name='$newName'
           WHERE Name='$name'";
     sendSql($sql);
-
-    updateDish($name,$newName);
     
-    //update dishes
-    break;
+   break;
 
   case "del":
     exit("Delete is not impleented yet!");  

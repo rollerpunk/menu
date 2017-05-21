@@ -2,8 +2,6 @@
 require "dbwork.php"; // move all DB work outside
 
 //TODO:
-// read tags from DB
-// remove auto exit calculation
 // make dish as ingredient
 
 
@@ -31,6 +29,7 @@ function createMenu()
          <ul>
           <li><a href="printD.php">Страви</a></li>
           <li><a href="printIng.php">Інгредієнти</a></li>
+          <li><a href="tags.php">Типи страв</a></li>
           <li><a href="print.php">Друк</a></li>
           <li><a href="about.html">Допомога</a></li>
         </ul>
@@ -44,6 +43,7 @@ function createMenu()
          <ul>
           <li><a href="printD.php">Страви</a></li>
           <li><a href="printIng.php">Інгредієнти</a></li>
+          <li><a href="tags.php">Типи страв</a></li>
           <li><a href="print.php">Друк</a></li>
           <li><a href="about.html">Допомога</a></li>
         </ul>
@@ -116,7 +116,7 @@ function dishForm($name="")
   <fieldset>
   <legend><h2>'.( $name == "" ? "Додати":"Змінити").' страву</h2></legend> 
   Назва страви:<br>
-  <input type="text" id="nameDs" name="name" placeholder= "Вібивна"  required  autocomplete="off" value="'.$name.'"/> 
+  <input type="text" id="nameDs" name="name" placeholder= "Вібивна"  required  autofocus autocomplete="off" value="'.$name.'"/> 
   <br>
   Iнгредієнти:<br>
    <table class="dishComp">  
@@ -135,22 +135,14 @@ function dishForm($name="")
      </tr>
 	 <tr><td colspan="5">
     Тип: <br>
-    <select multiple id="dType" name="type" data-placeholder="Тип страви..." class="chosen-select" autocomplete="off"  style="width:100%;">
-      <option value="бенкет">Бенкетні страви</option>
-      <option value="холзак">Холодні закуски</option>
-      <option value="гарзак">Гарячі закуски</option>
-      <option value="домстра">Домашні страви</option>
-      <option value="перстра">Перші страви</option>
-      <option value="курка">Страви з курки</option>
-      <option value="свиня">Страви з свинини</option>
-      <option value="теля">Страви з телятини</option>
-      <option value="риба">Страви з риби</option>
-      <option value="гарнір">Гарніри</option>
-      <option value="основні">Основні страви</option>
-      <option value="пивзак">Закуски до пива</option>
-      <option value="десерт">Десерти</option>
-      <option value="салат">Салат</option>
-    </select> 
+    <select size="7" multiple id="dType" name="type" data-placeholder="Тип страви..." class="chosen-select" autocomplete="off"  style="width:100%;">';
+    $tags=getTags();
+    foreach($tags as $value)
+    {
+         echo '<option value="'.$value.'">'.$value.'</option>';
+    }
+      
+    echo '</select> 
     <br>
     Нотатки:<br><textarea id="notes" name="notes" rows="6" cols="50"></textarea>
    </td></tr>
@@ -211,7 +203,7 @@ function getIngs($name)
 	  echo ' <td><div class="delBtn">X</div></td>
 	      </tr>';
 	}	
-	
+	 
 	 echo '<tr id="lastIng"><td colspan="3"> <button id="addIng" onclick="addIngr()">Додати інгредієнт</button></td></tr>
      <tr>
 	  <td colspan="2"> Додаткова накрутка:  <input type= "number" id="factor" min= "0" step= "0.01" autocomplete="off" size="6" value="'.$dish["Factor"].'"/></td>
@@ -220,28 +212,19 @@ function getIngs($name)
      </tr>
 	 <tr><td colspan="5">
     Тип: <br>
-    <select multiple id="dType" name="type" data-placeholder="Тип страви..." class="chosen-select" autocomplete="off"  style="width:100%;">
-      <option value="бенкет" '.( strpos($dish['Type'],"бенкет") === FALSE ? "" : "selected" ).'>Бенкетні страви</option>
-      <option value="холзак" '.( strpos($dish['Type'],"холзак") === FALSE ? "" : "selected" ).'>Холодні закуски</option>
-      <option value="гарзак" '.( strpos($dish['Type'],"гарзак") === FALSE ? "" : "selected" ).'>Гарячі закуски</option>
-      <option value="домстра" '.( strpos($dish['Type'],"домстра") === FALSE ? "" : "selected"  ).'>Домашні страви</option>
-      <option value="перстра" '.( strpos($dish['Type'],"перстра") === FALSE ? "" : "selected"  ).'>Перші страви</option>
-      <option value="курка" '.( strpos($dish['Type'],"курка") === FALSE ? "" : "selected"  ).'>Страви з курки</option>
-      <option value="свиня" '.( strpos($dish['Type'],"свиня") === FALSE ? "" : "selected"  ).'>Страви з свинини</option>
-      <option value="теля" '.( strpos($dish['Type'],"теля") === FALSE ? "" : "selected"  ).'>Страви з телятини</option>
-      <option value="риба" '.( strpos($dish['Type'],"риба") === FALSE ? "" : "selected"  ).'>Страви з риби</option>
-      <option value="гарнір" '.( strpos($dish['Type'],"гарнір") === FALSE ? "" : "selected"  ).'>Гарніри</option>
-      <option value="основні" '.( strpos($dish['Type'],"основні") === FALSE ? "" : "selected"  ).'>Основні страви</option>
-      <option value="пивзак" '.( strpos($dish['Type'],"пивзак") === FALSE ? "" : "selected"  ).'>Закуски до пива</option>
-      <option value="десерт" '.( strpos($dish['Type'],"десерт") === FALSE ? "" : "selected"  ).'>Десерти</option>
-      <option value="салат" '.( strpos($dish['Type'],"салат") === FALSE ? "" : "selected"  ).'>Салат</option>
+    <select size="5" multiple id="dType" name="type" data-placeholder="Тип страви..." class="chosen-select" autocomplete="off"  style="width:100%;">';
+    $tags=getTags();    
+    foreach($tags as $value)
+    {
+        echo '<option value="'.$value.'" '.( strpos($dish['Type'],$value) === FALSE ? "" : "selected" ).'>'.$value.'</option>';
+    }
 
-    </select> 
+    echo '</select> 
     <br> 
     Нотатки:<br><textarea form="myform" id="notes" name="notes" rows="6" cols="50">'.$dish["Notes"].'</textarea>
    </td></tr>
 	 </table>';
-	 echo'<br><br><button class="cancel" onclick="location.href=\'printIng.php\';">Видалити страву</button>';
+    echo '<br><br><button class="cancel" onclick="location.href=\'printIng.php\';">Видалити страву</button>';
 }
 
 
@@ -290,34 +273,6 @@ function getJsonDish($name)
 }
 
 
-function updateDish($iName,$nName)
-{
-  $sql = "SELECT * FROM dish WHERE Ingredients LIKE '$iName';";
-  $result = sendSql($sql);
-  
-  while ($row = $result->fetch_assoc())
-  {
-    if ($iName != $nName)
-    {
-      $ings = unserialize($row['Ingredients']);
-      // find element that need to be changed
-      for ($i=0;$i < count($ings);$i++)
-      {
-        if($ings[$i] == $iName)
-        {
-          $ings[$i] = $nName;
-
-          $row['Ingredients'] = serialize($ings); // ingredients
-          break;
-        }
-      }
-    }
-
-    $row['Price'] =calculateDish($row); 
-   
-  }   
-}
-
 
 function calculateDish($dish)
 {
@@ -344,6 +299,22 @@ function calculateDish($dish)
 
 }
 
+//-----------------------------------
+// get array of tags
+//-----------------------------------
+function getTags()
+{
+    // get all tags data and put to the form
+    $sql = "SELECT * FROM tags ORDER BY Name ASC;";
+    $result=sendSql($sql);
+    $tags=[];
+    while ($row = $result->fetch_assoc())
+    {
+        $tags[] = $row['Name'];
+    }
+    
+    return $tags;
+}
 
 ?>
 

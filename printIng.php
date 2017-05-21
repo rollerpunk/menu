@@ -16,15 +16,6 @@
 <body>
 <?php
 
-/*
-TODO:
-    alphabet sort
-	ціна бару/ change layout
-	change factor to out-price
-
-
-
-*/
 
 require "lib.php"; 
 createMenu();

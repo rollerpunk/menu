@@ -193,7 +193,8 @@ function addDishJson()
 
   $("#dish").val(jDish);   
 //TODO: check data
-  $('#addDish').submit(); //submit form
+  if ($("#nameDs").val() !="")
+    $('#addDish').submit(); //submit form
   
 }
 
@@ -313,11 +314,11 @@ function isDishInDb2(result)
     if (result == 1) // dish already present in DB
     {
         alert("Dish already exists");
-        $( "#nameDs" ).addClass( "invalid" );    
+        $( "#nameDs" ).addClass( ":invalid" );    
     }
     else
     {
-        $( "#nameDs" ).removeClass( "invalid" );
+        $( "#nameDs" ).removeClass( ":invalid" );
     }
 }
 

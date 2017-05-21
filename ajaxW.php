@@ -31,7 +31,7 @@ switch ($orderCode) {
     $sql = "SELECT * FROM dish WHERE Name='$name' ;";
     $result=sendSql($sql);
 
-    if ($result->fetch_assoc())
+    if ($result->fetch_assoc() != NULL )
         echo 0;
     else
         echo 1; // present in db
