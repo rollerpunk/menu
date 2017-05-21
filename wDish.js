@@ -3,24 +3,20 @@
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script src="ajaxW.js"></script>
 */
 
 
 
 //TODO 
 /*
-    add comment to dish
-    add dish type, its possible to have multitype,use hashteg
+ *  mark namefield as error if dish already exists
     print view,use sorting by gpoups   
-    original price for dish
-    use pieces
-    alphabet sort
-    вхід- вага
     no price per unit in dish
     highlight final price
-
-
-
+    calculate min width for window
+    wider priceholder
+    limited list for tags 
 */
 
 $(function(){ // we have dynamic page. wait until it loads
@@ -63,7 +59,7 @@ function addIngr()
                                  <input class = "calcTriger nameIng in_data" type="text" name="nameIng" placeholder= "Свинина" autocomplete="off" required />\
                                </div></td> \
                                <td><input class = "calcTriger in_data" type= "number" name= "evalIng" min= "0" step= "1" placeholder="300" required autocomplete="off"/></td>  \
-                               <td><input class ="in_data" type= "number" name= "outIng" min= "0" step= "1" placeholder="300" required autocomplete="off"/>г</td>\
+                               <td><input class = "calcTriger in_data" type= "number" name= "outIng" min= "0" step= "1" placeholder="300" required autocomplete="off"/>г</td>\
                                <td></td>\
                                <td><div class="delBtn">X</div></td>\
                        </tr>');
@@ -112,11 +108,13 @@ function udatePrice()
  //read ingredients
   var price=0;
   var dish=getDishObj();
+  var outEmount = 0;
   for (i=0;i< dish.length;i++)
   { 
 
     priceIng = priceList[dish[i][0]];
     emount = dish[i][1]; 
+    outEmount +=  dish[i][2]*1
     tPrice = ( priceIng * emount ) ;    // align units 
     price+=tPrice ;
 
@@ -124,7 +122,12 @@ function udatePrice()
   //tmpPrice is multiplied by 1000  <--- kostuli dlja js kalkyljacii
   price = (price + $("#factor").val()*1000)/1000; //need to multyply  to avoid string and stupid calculation errors
   oldPrice=price;
-
+  $('#price').val(price);
+  $('#price').text(price);
+  
+  $('#output').val(outEmount);
+  $('#output').text(outEmount);
+  
   return price;
 }
 
@@ -137,8 +140,7 @@ function udatePrice()
 $(document).on('change', '#factor', function()
 {
   price = udatePrice();
-  $('#price').val(price);
-  $('#price').text(price);
+
 });
 
 //----------------------------------
@@ -229,7 +231,7 @@ $(document).on('change', '.calcTriger', function()
 function getPricePart2(result)
 {
   //price is per kg,but we use it for grams (1000 times more)   <----kostul dlja kalkyljacii v js
-
+   
   ing = JSON.parse(result); 
   priceList[ing.Name] = ing.BarPrice*(ing.Unit=="кг" ? 1:1000); //set factorised price*1000
 
@@ -241,7 +243,7 @@ function getPricePart2(result)
   $row.find("td:nth-child(3)").contents().filter(function () {
 	  return this.nodeType === 3; 
   }).remove();
-  $row.find("td:nth-child(3)").find("input").val(emount*60/100) // auto decrease outcome
+  //$row.find("td:nth-child(3)").find("input").val(emount*60/100) // auto decrease outcome
   $row.find("td:nth-child(3)").append((ing.Unit == "кг" ? "г" : ing.Unit));
   $row.find("td:nth-child(4)").empty();
   $row.find("td:nth-child(4)").append(emount*priceList[ing.Name]/1000+" грн"); //price per ingredient
@@ -249,8 +251,7 @@ function getPricePart2(result)
 
 //update total price
   price = udatePrice();
-  $('#price').val(price);
-  $('#price').text(price); 
+
 
 };
 
@@ -267,8 +268,7 @@ $(document).on('click', '.delBtn', function()
 
 //update total price
   price = udatePrice();
-  $('#price').val(price);
-  $('#price').text(price); 
+
 });
 
 
@@ -288,8 +288,7 @@ function setPriceList(result) //json object
   
   if ($('#price').val() != price)
     alert ("price updated \nold:"+$('#price').val()+"\nnew: "+price);
-  $('#price').text(price);
-  $('#price').val(price);
+
 }
 
 //-----------------------------------------------------
@@ -301,4 +300,24 @@ $(document).on('focus', '.nameIng', function()
   //alert("keyup");
   $(this).autocomplete({ source: 'search.php'  });
 });
+
+
+// syntax for dynamicly created elements
+$(document).on('change', '#nameDs', function() 
+{
+   isDishInDb($('#nameDs').value)
+});
+
+function isDishInDb2(result)
+{  
+    if (result == 1) // dish already present in DB
+    {
+        alert("Dish already exists");
+        $( "#nameDs" ).addClass( "invalid" );    
+    }
+    else
+    {
+        $( "#nameDs" ).removeClass( "invalid" );
+    }
+}
 

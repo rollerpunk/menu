@@ -1,6 +1,13 @@
 <?php
 require "dbwork.php"; // move all DB work outside
 
+//TODO:
+// read tags from DB
+// remove auto exit calculation
+// make dish as ingredient
+
+
+
 //===========Commmon Functions=================
 
 //-----------------------------
@@ -64,18 +71,22 @@ echo'
   if ($name=="") echo 'Додати інгредієнт'; else echo 'Змінити інгредієнт';
   echo' </h2></legend>  
         Назва:<br>
-        <input type="text" name="name" '.($name=="" ? "placeholder= \"Картопля\" autocomplete=\"off\" required":"hidden").' value="'.$name.'"/>
+        <input type="text" name="name" id ="ingName" autofocus '.($name=="" ? "placeholder= \"Картопля\" autocomplete=\"off\" required":"hidden").' value="'.$name.'"/>
         <input type="text" name="newName" '.($name!="" ? "placeholder= \"Картопля\" autocomplete=\"off\" required":"hidden").' value="'.$name.'"/> <br>
         <div style="display:inline-block">
         Фасофка:<br>
-        <input type= "number"  class="i_triger" name= "pack" min= "0" step= "0.01" placeholder="1" required autocomplete="off" value="'.$pack.'" />';
-	if ($unit=="") echo '<input class="i_triger" type="radio" name="unit" id="g" value="г" autocomplete="off"><label for="g">гр</label>';	 
-  echo '<input type="radio" class="i_triger" name="unit" id= "kg" value="кг" autocomplete="off"';	 
-	if ($unit =='кг') echo "checked"; 
-	echo '> <label for="kg">кг</label>
-	    <input type="radio" class="i_triger" name="unit" id= "p" value="шт" autocomplete="off"';
- 	if ($unit =='шт') echo "checked";	
-	echo '> <label for="p">шт</label>'; 
+        <input type= "number"  class="i_triger" name= "pack" min= "0" step= "0.01" value="1" required autocomplete="off" value="'.$pack.'" />';
+        
+//	if ($unit=="") 
+//     echo '<input class="i_triger" type="radio" name="unit" id="g" value="г" autocomplete="off"><label for="g">гр</label>';	 
+        
+        echo '<input type="radio" class="i_triger" name="unit" id= "kg" value="кг" autocomplete="off"';
+	if ($unit =='кг' || $unit=="") echo "checked"; 
+	
+	echo '> <label for="kg">кг</label> <input type="radio" class="i_triger" name="unit" id= "p" value="шт" autocomplete="off"';
+ 	if ($unit =='шт') echo "checked"; 
+ 	
+ 	echo '> <label for="p">шт</label>'; 
 	echo '<br></div><br>  
         <div style="display:inline-block;margin:10px">
         Ціна:<br>
@@ -84,9 +95,9 @@ echo'
         <div id="ppu" style="display:inline-block;margin:10px"><span>0</span> грн/<span>кг</span></div> 
         <br>
         <div id = "bPrice" style="display:inline-block;margin:10px">
-        Ціна бару: <input type= "number" name= "bPrice" min= "1.1" step= "0.1" required autocomplete="off" size="4" value="'.$bPrice.'"/> грн/<span>кг</span>
+        Ціна бару: <input type= "number" name= "bPrice" min= "1" step= "0.1" required autocomplete="off" size="4" value="'.$bPrice.'"/> грн/<span>кг</span>
         </div>';
-	if ($unit != "") echo'<br><br><button class="cancel" onclick="location.href=\'printIng.php\';">Видалити інгредієнт</button>';
+	if ($unit != "") echo '<br><br><button class="cancel" onclick="location.href=\'printIng.php\';">Видалити інгредієнт[n/a]</button>';
   echo '</fieldset><br>';
   if ($unit == "") echo '<button name="btn" value="addIng">Додати</button>'; else  echo '<button name="btn" value="editIng">Зміннити</button>';
   echo '<button class="cancel" onclick="location.href=\'printIng.php\';">Скасувати</button>
@@ -101,11 +112,11 @@ echo'
 function dishForm($name="")
 {
   echo '<div class="add_form">
-  <form name="myform">
+  <form method="post" action="wDish.php" id="addDish">
   <fieldset>
   <legend><h2>'.( $name == "" ? "Додати":"Змінити").' страву</h2></legend> 
   Назва страви:<br>
-  <input type="text" id="nameDs" placeholder= "Вібивна" autocomplete="off" required  value="'.$name.'"/> 
+  <input type="text" id="nameDs" name="name" placeholder= "Вібивна"  required  autocomplete="off" value="'.$name.'"/> 
   <br>
   Iнгредієнти:<br>
    <table class="dishComp">  
@@ -125,31 +136,41 @@ function dishForm($name="")
 	 <tr><td colspan="5">
     Тип: <br>
     <select multiple id="dType" name="type" data-placeholder="Тип страви..." class="chosen-select" autocomplete="off"  style="width:100%;">
-      <option value="перше">Перше</option>
-      <option value="риба">Риба</option>
-      <option value="курка">Курка</option>
-      <option value="мясо">Мясо</option>
+      <option value="бенкет">Бенкетні страви</option>
+      <option value="холзак">Холодні закуски</option>
+      <option value="гарзак">Гарячі закуски</option>
+      <option value="домстра">Домашні страви</option>
+      <option value="перстра">Перші страви</option>
+      <option value="курка">Страви з курки</option>
+      <option value="свиня">Страви з свинини</option>
+      <option value="теля">Страви з телятини</option>
+      <option value="риба">Страви з риби</option>
+      <option value="гарнір">Гарніри</option>
+      <option value="основні">Основні страви</option>
+      <option value="пивзак">Закуски до пива</option>
+      <option value="десерт">Десерти</option>
+      <option value="салат">Салат</option>
     </select> 
     <br>
-    Нотатки:<br><textarea id="notes" form="myform" name="notes" rows="6" cols="50"></textarea>
+    Нотатки:<br><textarea id="notes" name="notes" rows="6" cols="50"></textarea>
    </td></tr>
 	 </table>';
   }
 
+  if ($unit != "") echo '<br><br><button class="cancel" onclick="location.href=\'printIng.php\';">Видалити страву [n/a]</button>';
 
   
   echo '
   </fieldset><br>
-  </form>
+
   <button onclick="addDishJson()" >'.($name == "" ? "Додати":"Змінити").'</button>
   <button class="cancel" onclick="location.href=\'printD.php\';">Скасувати</button> 
-  </div>';
+  ';
 	  
-  echo '<form method="post" action="wDish.php" id="addDish">
-	   <input type="hidden" id="oldName" name="oldName" value="'.$name.'">
+  echo ' <input type="hidden" id="oldName" name="oldName" value="'.$name.'">
 	   <input type="hidden" id="dish" name="dish">
 	   <input type="hidden" id="action" name="action" value="'.($name == "" ? "addD":"editD").'">
-	</form>';	
+  </form></div>';	
 	
 }
 
@@ -159,16 +180,16 @@ function dishForm($name="")
 //-----------------------------------
 function getIngs($name)
 {
-		// it's time to get all dish data and put to the form
+	// it's time to get all dish data and put to the form
 	$name = test_input($name);
 	$sql = "SELECT * FROM dish WHERE Name='$name' ORDER BY Name ASC;";
 	$result=sendSql($sql);
 	$dish = $result->fetch_assoc();
 
-//divide ingredieents to array
-  $ings = unserialize($dish['Ingredients']);
-  $emount = unserialize($dish['Emounts']); // input emount of ingredients
-  $outEmount = unserialize($dish['OutEmounts']);  // outcome emount of ingredients
+        //divide ingredieents to array
+        $ings = unserialize($dish['Ingredients']);
+        $emount = unserialize($dish['Emounts']); // input emount of ingredients
+        $outEmount = unserialize($dish['OutEmounts']);  // outcome emount of ingredients
 
 	for($i=0;$i<count($ings);$i++)
 	{
@@ -185,7 +206,7 @@ function getIngs($name)
 			   <input class = "calcTriger nameIng in_data" type="text" name="nameIng" autocomplete="off" required  value="'.$ings[$i].'"/>
 			 </div></td>';// ing name
 	  echo ' <td><input class = "calcTriger in_data" type= "number" name= "evalIng" min= "0" step= "1"  required  value="'.$emount[$i].'"/></td>  '; //emount
-	  echo ' <td><input class = "in_data" type= "number" name= "evalIng" min= "0" step= "1" required   value="'.$outEmount[$i].'"/> '.($ing['Unit']=='кг' ? "г" : $ing['Unit']).'</td>'; //out emount unit
+	  echo ' <td><input class = "calcTriger in_data" type= "number" name= "outIng" min= "0" step= "1" required   value="'.$outEmount[$i].'"/> '.($ing['Unit']=='кг' ? "г" : $ing['Unit']).'</td>'; //out emount unit
 	  echo ' <td>'.$pr.' грн</td>'; // price
 	  echo ' <td><div class="delBtn">X</div></td>
 	      </tr>';
@@ -200,10 +221,21 @@ function getIngs($name)
 	 <tr><td colspan="5">
     Тип: <br>
     <select multiple id="dType" name="type" data-placeholder="Тип страви..." class="chosen-select" autocomplete="off"  style="width:100%;">
-      <option value="перше" '.( strpos($dish['Type'],"перше") === FALSE ? "" : "selected" ).'>Перше</option>
-      <option value="риба" '.( strpos($dish['Type'],"риба") === FALSE ? "" : "selected" ).'>Риба</option>
-      <option value="курка" '.( strpos($dish['Type'],"курка") === FALSE ? "" : "selected" ).'>Курка</option>
-      <option value="мясо" '.( strpos($dish['Type'],"мясо") === FALSE ? "" : "selected"  ).'>Мясо</option>
+      <option value="бенкет" '.( strpos($dish['Type'],"бенкет") === FALSE ? "" : "selected" ).'>Бенкетні страви</option>
+      <option value="холзак" '.( strpos($dish['Type'],"холзак") === FALSE ? "" : "selected" ).'>Холодні закуски</option>
+      <option value="гарзак" '.( strpos($dish['Type'],"гарзак") === FALSE ? "" : "selected" ).'>Гарячі закуски</option>
+      <option value="домстра" '.( strpos($dish['Type'],"домстра") === FALSE ? "" : "selected"  ).'>Домашні страви</option>
+      <option value="перстра" '.( strpos($dish['Type'],"перстра") === FALSE ? "" : "selected"  ).'>Перші страви</option>
+      <option value="курка" '.( strpos($dish['Type'],"курка") === FALSE ? "" : "selected"  ).'>Страви з курки</option>
+      <option value="свиня" '.( strpos($dish['Type'],"свиня") === FALSE ? "" : "selected"  ).'>Страви з свинини</option>
+      <option value="теля" '.( strpos($dish['Type'],"теля") === FALSE ? "" : "selected"  ).'>Страви з телятини</option>
+      <option value="риба" '.( strpos($dish['Type'],"риба") === FALSE ? "" : "selected"  ).'>Страви з риби</option>
+      <option value="гарнір" '.( strpos($dish['Type'],"гарнір") === FALSE ? "" : "selected"  ).'>Гарніри</option>
+      <option value="основні" '.( strpos($dish['Type'],"основні") === FALSE ? "" : "selected"  ).'>Основні страви</option>
+      <option value="пивзак" '.( strpos($dish['Type'],"пивзак") === FALSE ? "" : "selected"  ).'>Закуски до пива</option>
+      <option value="десерт" '.( strpos($dish['Type'],"десерт") === FALSE ? "" : "selected"  ).'>Десерти</option>
+      <option value="салат" '.( strpos($dish['Type'],"салат") === FALSE ? "" : "selected"  ).'>Салат</option>
+
     </select> 
     <br> 
     Нотатки:<br><textarea form="myform" id="notes" name="notes" rows="6" cols="50">'.$dish["Notes"].'</textarea>
@@ -311,7 +343,6 @@ function calculateDish($dish)
   return $tprice;
 
 }
-
 
 
 ?>

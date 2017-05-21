@@ -83,6 +83,13 @@ function resultHandler(result,action)
     case "getIngredient":
       getPricePart2(result);
       break;
+    case "isDishInDb":
+      isDishInDb2(result);
+      break;
+    case "isIngInDb":
+      isIngInDb2(result);
+      break;
+        
 
     default:
       alert("Not supported action:"+action);
@@ -118,6 +125,25 @@ function dbGetDish(item)
 }
 
 
+//------------------------
+//check if element present in db
+///-----------------------
+function isDishInDb(item)
+{
+  action="isDishInDb";
+  request = 'ordercode=isDishInDb&name='+item;
+  sendHttpReq(request,action);
+}
+
+function isIngInDb(item)
+{
+  action="isIngInDb";
+  request = 'ordercode=isIngInDb&name='+item;
+  sendHttpReq(request,action);
+}
+
+
+ 
 //-----------------------------------
 // update prices at editDish loads
 //-----------------------------------

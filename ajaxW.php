@@ -26,6 +26,26 @@ switch ($orderCode) {
   case "getDish":
     echo getJsonDish($name);
     break;
+    
+  case "isDishInDb":
+    $sql = "SELECT * FROM dish WHERE Name='$name' ;";
+    $result=sendSql($sql);
+
+    if ($result->fetch_assoc())
+        echo 0;
+    else
+        echo 1; // present in db
+    break;
+    
+  case "isIngInDb":
+    $sql = "SELECT * FROM ingredients WHERE Name='".$ing."';";
+    $result = sendSql($sql);
+
+    if ($result->fetch_assoc())
+        echo 0; 
+    else
+        echo 1;
+    break;
 
   case "getPriceList":
     $ings=explode("^", $name);

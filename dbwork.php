@@ -4,23 +4,31 @@
 //--------------------
 //connect to DB
 //--------------------
-function dbConnect($server="localhost",$db="menu-web",$user="menu",$pass="menu")
+function dbConnect($server="localhost",$db="id291432_menu",$user="id291432_menu",$pass="menu12345")
 
 {
   // Create connection
-  $conn = new mysqli($server, $user, $pass,$db);
-
-  // Check connection
-  if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-  }
-
-
   
-  return $conn; 
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-}// NB: don't forget to close a connection with   $conn->close();
-//------------------------------------------------------------------
+  for ($i = 1; $i <= 10; $i++)
+  {
+    $conn = new mysqli($server, $user, $pass,$db);
+    if (!$conn->connect_error) 
+    {
+      // connection to db successful
+      return $conn;
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    // NB: don't forget to close a connection with   $conn->close();
+    //------------------------------------------------------------------  
+    }
+   
+    sleep(5); // next try in 10 sec
+  }
+  // no connection after 10 retrys. Just die
+  die("[DBWork]Connection failed: " . $conn->connect_error);
+}
+  
+   
+
 
 
 //----------------------------
@@ -57,7 +65,7 @@ function sendSql($sql)
       echo "<div class=\"footer errorDiv\"><br><b>sql</b># ".$conn->errno.":<br>" . $sql . "<br><b>Error:</b><br>" . $conn->error . "<br></div>"; //TODO make normal error handler
       return false;
     }
- }
+  }
   $conn->close();
   return  $result;
 }
