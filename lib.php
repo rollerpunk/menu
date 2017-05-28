@@ -29,7 +29,6 @@ function createMenu()
          <ul>
           <li><a href="printD.php">Страви</a></li>
           <li><a href="printIng.php">Інгредієнти</a></li>
-          <li><a href="tags.php">Типи страв</a></li>
           <li><a href="print.php">Друк</a></li>
           <li><a href="about.html">Допомога</a></li>
         </ul>
@@ -43,7 +42,6 @@ function createMenu()
          <ul>
           <li><a href="printD.php">Страви</a></li>
           <li><a href="printIng.php">Інгредієнти</a></li>
-          <li><a href="tags.php">Типи страв</a></li>
           <li><a href="print.php">Друк</a></li>
           <li><a href="about.html">Допомога</a></li>
         </ul>
@@ -144,24 +142,23 @@ function dishForm($name="")
       
     echo '</select> 
     <br>
-    Нотатки:<br><textarea id="notes" name="notes" rows="6" cols="50"></textarea>
-   </td></tr>
-	 </table>';
+    Нотатки:
+    <br><textarea id="notes" name="notes" rows="6" cols="50"></textarea>
+    </td></tr>
+    </table>';
   }
 
   if ($unit != "") echo '<br><br><button class="cancel" onclick="location.href=\'printIng.php\';">Видалити страву [n/a]</button>';
-
   
   echo '
   </fieldset><br>
 
   <button onclick="addDishJson()" >'.($name == "" ? "Додати":"Змінити").'</button>
-  <button class="cancel" onclick="location.href=\'printD.php\';">Скасувати</button> 
-  ';
+  <button class="cancel" onclick="location.href=\'printD.php\';">Скасувати</button> ';
 	  
   echo ' <input type="hidden" id="oldName" name="oldName" value="'.$name.'">
-	   <input type="hidden" id="dish" name="dish">
-	   <input type="hidden" id="action" name="action" value="'.($name == "" ? "addD":"editD").'">
+         <input type="hidden" id="dish" name="dish">
+         <input type="hidden" id="action" name="action" value="'.($name == "" ? "addD":"editD").'">
   </form></div>';	
 	
 }

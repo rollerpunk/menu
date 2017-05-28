@@ -313,7 +313,7 @@ function isDishInDb2(result)
 {  
     if (result == 1) // dish already present in DB
     {
-        alert("Dish already exists");
+       // alert("Dish already exists");
         $( "#nameDs" ).addClass( ":invalid" );    
     }
     else

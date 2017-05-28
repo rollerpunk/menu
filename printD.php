@@ -33,15 +33,31 @@ printDishlist();
  
 //-------------------------------------------------------------------
 //--- functions --
+function printDishlist()
+{
+  $tags = getTags();
+  foreach($tags as $tag)
+  {
+    echo "<h2>".$tag."</h2>";
+    printDishes($tag);
+    echo "<br>";
+  }
+  echo "<hr><hr>Всі страви<hr><hr>";
+  printDishes("");
 
+}
 
 //----------------------------------------
 // --print table of ingredients
 //----------------------------------------
-function printDishlist()
-{
+function printDishes($tag)
 
-  $result=sendSql("SELECT * FROM dish ORDER BY Name ASC;"); 
+{
+  if ($tag != "")
+    $result=sendSql("SELECT * FROM dish WHERE Type LIKE '%".$tag."%' ORDER BY Name ASC;"); 
+  else
+    $result=sendSql("SELECT * FROM dish ORDER BY Name ASC;"); 
+
 
   if($result->num_rows > 0)
   {
