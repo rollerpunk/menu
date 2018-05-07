@@ -4,7 +4,7 @@
 //--------------------
 //connect to DB
 //--------------------
-function dbConnect($server="localhost",$db="id291432_menu",$user="id291432_menu",$pass="menu12345")
+function dbConnect($server="localhost",$db="webmenu",$user="webmenu",$pass="menu12345")
 
 {
   // Create connection
