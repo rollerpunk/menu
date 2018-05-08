@@ -2,7 +2,7 @@
 <head> 
   <title>Страви</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <link rel="icon" href="menu.png" type="image/x-icon">
+  <link rel="icon" href="menu.ico" type="image/x-icon">
 
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' media="only screen and (max-device-width: 799px)"/>
   <link rel="stylesheet" type="text/css" media="only screen and (max-device-width: 799px)" href="small-device.css" />  
@@ -74,10 +74,12 @@ function printDishes($tag)
 
     while($row = $result->fetch_assoc())
     {
+      $price = calculateDish($row);
+
       echo("<tr class='passive'>
       <td>".$row['Name']." </td>
       <td>".$row['Outcome']." г</td>
-      <td>".$row['Price']." грн </td>
+      <td>".$row['Price']."|".$price." грн </td>
       <td>".$row['Type']."</td>
       
       </tr>");     

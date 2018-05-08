@@ -66,8 +66,12 @@ echo'
 <form method="post" action="wIng.php" id="ingrForm">
   <fieldset>
   <legend><h2>';
-  if ($name=="") echo 'Додати інгредієнт'; else echo 'Змінити інгредієнт';
-  echo' </h2></legend>  
+  if ($name=="") 
+    echo 'Додати інгредієнт'; 
+  else 
+    echo 'Змінити інгредієнт';
+
+  echo ' </h2></legend>  
         Назва:<br>
         <input type="text" name="name" id ="ingName" autofocus '.($name=="" ? "placeholder= \"Картопля\" autocomplete=\"off\" required":"hidden").' value="'.$name.'"/>
         <input type="text" name="newName" '.($name!="" ? "placeholder= \"Картопля\" autocomplete=\"off\" required":"hidden").' value="'.$name.'"/> <br>
@@ -118,20 +122,21 @@ function dishForm($name="")
   <br>
   Iнгредієнти:<br>
    <table class="dishComp">  
-	<tr><th>Складник</th><th>Вхід</th><th>Вихід</th><th>Ціна</th></tr>';
+	<tr><th>Складник</th><th>Вхід</th><th>Вихід</th><th>Ціна</th><th></th></tr>';
 	
   if ($name != "" ) // edit dish
   { 
 	  getIngs($name);
   }
-  else {
-  echo '<tr id="lastIng"><td colspan="3"> <button id="addIng" onclick="addIngr()">Додати інгредієнт</button></td></tr>
+  else 
+  {
+    echo '<tr id="lastIng"><td colspan="3"> <button id="addIng" onclick="addIngr()">Додати інгредієнт</button></td></tr>
      <tr>
-	  <td colspan="2"> Додаткова накрутка:  <input type= "number" id="factor" min= "0" step= "0.01" autocomplete="off"/></td>
-	  <th><input class= "total" type= "number" id= "output" min= "1" step= "0.01" placeholder="150" required autocomplete="off" />г</th> 
-	  <th><input type= "number" id="price" size="5"step= "0.01" autocomplete="off" /> грн</th>       
+	    <td colspan="2"> Додаткова накрутка:  <input type= "number" id="factor" min= "0" step= "0.01" autocomplete="off"/></td>
+	    <th><input class= "total" type= "number" id= "output" min= "1" step= "0.01" placeholder="150" required autocomplete="off" />г</th> 
+	    <th><input type= "number" id="price" size="5"step= "0.01" autocomplete="off" /> грн</th>       
      </tr>
-	 <tr><td colspan="5">
+	  <tr><td colspan="5">
     Тип: <br>
     <select size="7" multiple id="dType" name="type" data-placeholder="Тип страви..." class="chosen-select" autocomplete="off"  style="width:100%;">';
     $tags=getTags();
@@ -270,7 +275,7 @@ function getJsonDish($name)
 }
 
 
-
+// $dish -- sql dish object
 function calculateDish($dish)
 {
 
@@ -312,6 +317,7 @@ function getTags()
     
     return $tags;
 }
+
 
 ?>
 

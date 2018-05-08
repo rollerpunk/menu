@@ -10,14 +10,13 @@ html, body{
   color: #fff !important;
   background-color: #6496c8 !important;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19) !important;
-  padding: 0.01em 16px;
+  padding: 0px 16px;
   display: block;
   font: normal normal normal 12px/1 FontAwesome;
   text-rendering: auto;
   position: fixed;
   width: 100%;
   z-index: 1;
-
 }
 
 #left_menu{
@@ -41,11 +40,12 @@ html, body{
   margin: 0px;
   padding:3px;
   padding-bottom:10px;
+  width: 98%;
 }
 
 
 .main_div {
- padding: 3em 5px;
+ padding: 2em 5px;
 }
 
 
@@ -96,10 +96,10 @@ html, body{
 
 
 input{
-  width: 5em;
+  width: 2em;
 }
 
 input[type="number"]{
-  width: 2em;
+  width: 5em;
 }
 

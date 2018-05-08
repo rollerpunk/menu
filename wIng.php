@@ -52,7 +52,29 @@ switch ($btn) {
 
 
 echo ("done");
-header( "Location: printIng.php" ); //go to ingredients view TODO: we als may go to menu or dish list
+header( "Location: printIng.php" ); //go to ingredients view TODO: we also may go to menu or dish list
+/*
+//Update affected dishes with new price
+function updatePrices($ing)
+{
+  // get a list of dishes to update
+  $sql = "SELECT * FROM dish WHERE Ingredients LIKE '%$ing%' ;";
+  $result = sendSql($sql);
+  
+  while ($row = $result->fetch_assoc())
+    {   
+      $dish = $ing['Name'];
+
+      // recalculate dish
+      $price = calculateDish($dish)
+
+      //update dish
+      $sql2="UPDATE dish SET Price='$price'WHERE Name='$dish'"; 
+      sendSql($sql2);
+
+    }
+
+}*/
 
 
 
