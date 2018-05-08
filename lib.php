@@ -130,7 +130,8 @@ function dishForm($name="")
   }
   else 
   {
-    echo '<tr id="lastIng"><td colspan="3"> <button id="addIng" onclick="addIngr()">Додати інгредієнт</button></td></tr>
+    echo '<tr id="lastIng"><td colspan="3"> <button id="addIng" onclick="addIngr()">Додати інгредієнт</button></td><td></td><td></td>
+     </tr>
      <tr>
 	    <td colspan="2"> Додаткова накрутка:  <input type= "number" id="factor" min= "0" step= "0.01" autocomplete="off"/></td>
 	    <th><input class= "total" type= "number" id= "output" min= "1" step= "0.01" placeholder="150" required autocomplete="off" />г</th> 

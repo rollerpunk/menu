@@ -245,13 +245,16 @@ table.dishComp {
   box-sizing:border-box;
 }
 
-#nameDs{
+.add_form{
+  overflow: hidden;
+  overflow-x:auto;
+}
+
+#nameDs,#ingName{
   width: 100%;
   margin: 8px 0px;
   font-size:1.5em;
 }
-
-
 
 
 
