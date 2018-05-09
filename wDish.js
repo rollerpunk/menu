@@ -46,7 +46,6 @@ function setTags(values)
 }
 
 var priceList=[];
-var oldPrice=0;
 
 
 //----------------------------------
@@ -120,14 +119,13 @@ function udatePrice()
 
   }
   //price is multiplied by 1000  <--- kostuli dlja js kalkyljacii
-  var origPrice = price;
   
   // put clculation into cells
   $('#lastIng').find("td:nth-child(2)").html(outEmount); //caculaed outcome
   $('#lastIng').find("td:nth-child(3)").html(price/1000); //caculaed price
-
+  
   price = (price + $("#factor").val()*1000)/1000; //need to multyply  to avoid string and stupid calculation errors
-  oldPrice=price;
+
   $('#price').val(price);
   $('#price').text(price);
   
@@ -155,6 +153,7 @@ $(document).on('change', '#factor', function()
 // syntax for dynamicly created elements
 $(document).on('change', '#price', function()
 {
+  oldPrice=$('#lastIng').find("td:nth-child(3)").html();
   price = $('#price').val();
   delta = ( price*1000 - oldPrice * 1000)/1000;
   $('#factor').val(delta);
