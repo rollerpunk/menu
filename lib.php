@@ -131,12 +131,15 @@ function dishForm($name="")
   }
   else 
   {
-    echo '<tr id="lastIng"><td colspan="3"> <button id="addIng" onclick="addIngr()">Додати інгредієнт</button></td><td></td><td></td>
-     </tr>
+    echo '<tr id="lastIng">
+             <td colspan="2"> <button id="addIng" onclick="addIngr()">Додати інгредієнт</button></td>
+             <td id="#origEmount">0</td>
+             <td id="#origPrice">0</td>
+          </tr>
      <tr>
-	    <td colspan="2"> Додаткова накрутка:  <input type= "number" id="factor" min= "0" step= "0.01" autocomplete="off"/></td>
+	    <td colspan="2"> Додаткова накрутка:  <input type= "number" id="factor" readonly /></td>
 	    <th><input class= "total" type= "number" id= "output" min= "1" step= "0.01" placeholder="150" required autocomplete="off" />г</th> 
-	    <th><input type= "number" id="price" size="5"step= "0.01" autocomplete="off" /> грн</th>       
+	    <th><input type= "number" id="price" size="7"step= "0.01" autocomplete="off" /> грн</th>       
      </tr>
 	  <tr><td colspan="5">
     Тип: <br>
@@ -154,13 +157,12 @@ function dishForm($name="")
     </td></tr>
     </table>';
   }
-  echo '</div>';
+  echo '</div><div>';
   
   if ($unit != "") echo '<br><br><button class="cancel" onclick="location.href=\'printIng.php\';">Видалити страву [n/a]</button>';
   
   echo '  
-  </fieldset><br>
-
+  </div></fieldset><br>
   <button onclick="addDishJson()" >'.($name == "" ? "Додати":"Змінити").'</button>
   <button class="cancel" onclick="location.href=\'printD.php\';">Скасувати</button> ';
 	  
@@ -209,12 +211,16 @@ function getIngs($name)
 	      </tr>';
 	}	
 	 
-	 echo '<tr id="lastIng"><td colspan="3"> <button id="addIng" onclick="addIngr()">Додати інгредієнт</button></td></tr>
-     <tr>
-	  <td colspan="2"> Додаткова накрутка:  <input type= "number" id="factor" min= "0" step= "0.01" autocomplete="off" size="6" value="'.$dish["Factor"].'"/></td>
-	  <th><input type= "number" id="output" step= "1" autocomplete="off" required value="'.$dish["Outcome"].'"/> г</th> 
+	 echo '<tr id="lastIng">
+	   <td colspan="2"> <button id="addIng" onclick="addIngr()">Додати інгредієнт</button></td>
+	   <td id="#origEmount">0</td>
+           <td id="#origPrice">0</td>
+	 </tr>
+         <tr>
+	  <td colspan="2"> Додаткова накрутка:  <input type= "number" id="factor" readonly size="6" value="'.$dish["Factor"].'"/></td>
+	  <th><input type= "number" id="output" step= "1" autocomplete="off" min= "2" required value="'.$dish["Outcome"].'"/> г</th> 
 	  <th><input type= "number" id="price" size="5"step= "0.01" autocomplete="off" value="'.$dish["Price"].'"/> грн</th>      
-     </tr>
+         </tr>
 	 <tr><td colspan="5">
     Тип: <br>
     <select size="5" multiple id="dType" name="type" data-placeholder="Тип страви..." class="chosen-select" autocomplete="off"  style="width:100%;">';
