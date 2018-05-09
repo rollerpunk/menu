@@ -35,16 +35,31 @@ printDishlist();
 //--- functions --
 function printDishlist()
 {
+
+  echo "<h2 >Всі страви <a name='Всі страви' href='#content'><img src='list.png' style='
+    width: 30px;
+    padding-left: 20px;'></a></h2>";
+  printDishes("");
+  
+  echo "<hr>";
   $tags = getTags();
   foreach($tags as $tag)
   {
-    echo "<h2>".$tag."</h2>";
+    echo "<h2>".$tag."<a name='".$tag."' href='#content'><img src='list.png' style='
+    width: 30px;
+    padding-left: 20px;'></a></h2>";
     printDishes($tag);
     echo "<br>";
   }
-  echo "<hr><hr>Всі страви<hr><hr>";
-  printDishes("");
 
+  echo "<div id='content'><a name='content'><h2>Зміст</h2></a>
+  <a href='#Всі страви'>Всі страви</a><br>";
+  foreach($tags as $tag)
+  {
+    echo "<a href='#".$tag."'>".$tag."</a><br>";
+  }
+  echo "</div>";
+  
 }
 
 //----------------------------------------

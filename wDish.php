@@ -53,8 +53,7 @@ switch ($btn) {
     echo ("wrong order code !!". $btn);
 }
 
-
-sendSql($sql);
+if ($name != "") sendSql($sql); // do not store empty dishes
  header( "Location: printD.php" ); //go to ingredients view TODO: we also may go to menu or dish list
  echo $sql;
 
