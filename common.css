@@ -3,7 +3,7 @@
 ----------------------------------------------------------*/
 @import url('https://fonts.googleapis.com/css?family=Pattaya|Gabriela');
 
-
+/* general elements */
 h2 {
   font-family: 'Pattaya' , serif;
   text-shadow: 4px 4px 4px #aaa;
@@ -18,6 +18,18 @@ h1{
   margin: 10px 10px; 
 }
 
+textarea{
+  width:100%;
+  resize: none;
+}
+
+input{
+  min-width:5em;
+}
+
+
+
+/* classes */
 .ingr_table {
   border-radius: 8px;
   overflow: hidden;
@@ -62,9 +74,7 @@ h1{
     cursor:default;
 }
 
-.dish_details tr:hover{
-  background-color: ;
-}
+
 
 .footer_btn hr {
   margin-top: 0px;
@@ -104,6 +114,8 @@ h1{
 }
 
 
+/* buttons */
+
 button {
   color: #fff;
   background-color: #6496c8;
@@ -135,6 +147,20 @@ button.cancel  /* buttons decoration*/
   float:right;
 }
 
+.delBtn
+{
+  color:red;
+  cursor:default;
+}
+
+.delBtn:hover,
+.delBtn.hover{
+  color:white;
+  background-color:red;
+  border-radius: 5px;
+}
+
+
 .add_form{ /*div with add/edit view  form */
   display:inline-block;
   border-radius: 8px;
@@ -158,12 +184,6 @@ button.cancel  /* buttons decoration*/
 * html .ui-autocomplete {
   height: 100px;
 }
-
-textarea{
-  width:100%;
-  resize: none;
-}
-
 
 .print_table{
   border-collapse: collapse;
@@ -203,6 +223,9 @@ div.header_table {
   font-size: 70%;
 }
 
+tr:hover.dish_details {
+  background-color:white ;
+}
 
 table.dishComp {
   border-collapse: colapse;
@@ -226,18 +249,7 @@ table.dishComp {
   color: white;
 }
 
-.delBtn
-{
-  color:red;
-  cursor:default;
-}
 
-.delBtn:hover,
-.delBtn.hover{
-  color:white;
-  background-color:red;
-  border-radius: 5px;
-}
 
 .add_form input{
   border:1px solid #ccc;
@@ -250,11 +262,22 @@ table.dishComp {
   overflow-x:auto;
 }
 
+.add_form fieldset{
+    width: 94%;
+    display: inline-block;
+    margin: 0px;
+    overflow: hidden;
+    overflow-x: auto;
+    padding: 0px 10px;
+    min-width: 0px;
+}
+
 #nameDs,#ingName{
   width: 100%;
   margin: 8px 0px;
   font-size:1.5em;
 }
+
 
 
 

@@ -43,7 +43,6 @@ html, body{
   width: 98%;
 }
 
-
 .main_div {
  padding: 2em 5px;
 }
@@ -94,10 +93,6 @@ html, body{
     color: white;
 }
 
-
-input{
-  width: 2em;
-}
 
 input[type="number"]{
   width: 5em;

@@ -71,7 +71,7 @@ echo'
   else 
     echo 'Змінити інгредієнт';
 
-  echo ' </h2></legend>  
+  echo ' </h2></legend>      
         Назва:<br>
         <input type="text" name="name" id ="ingName" autofocus '.($name=="" ? "placeholder= \"Картопля\" autocomplete=\"off\" required":"hidden").' value="'.$name.'"/>
         <input type="text" name="newName" '.($name!="" ? "placeholder= \"Картопля\" autocomplete=\"off\" required":"hidden").' value="'.$name.'"/> <br>
@@ -120,6 +120,7 @@ function dishForm($name="")
   Назва страви:<br>
   <input type="text" id="nameDs" name="name" placeholder= "Вібивна"  required  autofocus autocomplete="off" value="'.$name.'"/> 
   <br>
+  <div style="overflow:hidden;overflow-x:auto;width:100%">
   Iнгредієнти:<br>
    <table class="dishComp">  
 	<tr><th>Складник</th><th>Вхід</th><th>Вихід</th><th>Ціна</th><th></th></tr>';
@@ -153,10 +154,11 @@ function dishForm($name="")
     </td></tr>
     </table>';
   }
-
+  echo '</div>';
+  
   if ($unit != "") echo '<br><br><button class="cancel" onclick="location.href=\'printIng.php\';">Видалити страву [n/a]</button>';
   
-  echo '
+  echo '  
   </fieldset><br>
 
   <button onclick="addDishJson()" >'.($name == "" ? "Додати":"Змінити").'</button>
