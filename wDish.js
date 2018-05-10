@@ -11,12 +11,8 @@
 //TODO 
 /*
  *  mark namefield as error if dish already exists
-    print view,use sorting by gpoups   
-    no price per unit in dish
-    highlight final price
     calculate min width for window
     wider priceholder
-    limited list for tags 
 */
 
 $(function(){ // we have dynamic page. wait until it loads
@@ -54,13 +50,11 @@ var priceList=[];
 function addIngr()
 {                              // use div for autocomlite
   $('#lastIng').before(' <tr class="ing2Calc"> \
-                               <td><div class="ui-widget">\
-                                 <input class = "calcTriger nameIng in_data" type="text" name="nameIng" placeholder= "Свинина" autocomplete="off" required />\
-                               </div></td> \
-                               <td><input class = "calcTriger in_data" type= "number" name= "evalIng" min= "0" step= "1" placeholder="300" required autocomplete="off"/></td>  \
-                               <td><input class = "calcTriger in_data" type= "number" name= "outIng" min= "0" step= "1" placeholder="300" required autocomplete="off"/>г</td>\
-                               <td></td>\
-                               <td><div class="delBtn">X</div></td>\
+                           <td><div class="ui-widget"><input class = "calcTriger nameIng in_data" type="text" name="nameIng" placeholder= "Свинина" autocomplete="off" required /></div></td> \
+                           <td><input class = "calcTriger in_data" type= "number" name= "evalIng" min= "0" step= "1" placeholder="300" required autocomplete="off"/></td>  \
+                           <td><input class = "calcTriger in_data" type= "number" name= "outIng" min= "0" step= "1" placeholder="300" required autocomplete="off"/>г</td>\
+                           <td></td>\
+                           <td><div class="delBtn" title="Видалити інгредієнт">X</div></td>\
                        </tr>');
 }
 

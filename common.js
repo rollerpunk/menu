@@ -120,7 +120,7 @@ function stickFooter()
 
 
 //-----------------------------
-// open/close mbile menu
+// open/close mobile menu
 //-----------------------------
 $(document).on('click', '.mOpener', function() 
 {
