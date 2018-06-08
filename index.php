@@ -51,7 +51,7 @@ require "lib.php"; // move all DB work outside
               <p>Якіта пару слів<br />
               які пафосно звучать	</p>
               <ul class="actions">
-                <li><a href="#" class="button special">Замоити бенкет</a></li>
+                <li><a href="#" class="button special">Замовити бенкет</a></li>
               </ul>
             </div>
           </section>
@@ -170,7 +170,7 @@ require "lib.php"; // move all DB work outside
                 <h2>Контакти</h2>
               </header>
               <ul class="actions">
-                <li><a href="#" class="button special">Замоити бенкет</a></li>
+                <li><a href="#" class="button special">Замовити бенкет</a></li>
               </ul>
              
              
