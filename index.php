@@ -153,12 +153,6 @@ require "lib.php"; // move all DB work outside
 
                 ?>
               
-              
-              
-              
-              
-                <h3>страва</h3>
-                <p>склад і опис</p>
             </div>
 
           </section>
@@ -175,10 +169,10 @@ require "lib.php"; // move all DB work outside
              
              
               <script src='https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyB7joyx-4tEedGYRS0cLRpGDor2XwBJCc8'></script>
-              <div style='overflow:hidden;height:400px;width:320px; display: table; margin: 0 auto;'>
+              <div style='overflow:hidden;height:400px;width:320px; display: table; margin: 0 auto;padding: 1em 0'>
                 <div id='gmap_canvas' style='height:400px;width:320px;color:black'></div>
                 <style>#gmap_canvas img{max-width:none!important;background:none!important}</style>
-              </div> 
+              </div> <br><br>
               <p><strong>Кафе-бар <br>Медобори</strong><br>м.Львів <br>пр.Червоної Калини 102 <br>"Санта-Барбара"</p>
            
               <script type='text/javascript'>
