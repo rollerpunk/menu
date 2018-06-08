@@ -16,7 +16,11 @@
 
   </head>
   <body class="landing">
+<?php
 
+require "lib.php"; // move all DB work outside
+
+?>
     <!-- Page Wrapper -->
       <div id="page-wrapper">
 
@@ -117,42 +121,38 @@
                 <p>тут буде згенероване меню з коротким описом <br>без цін, можливо з фотками</p>
               </header>
               
-<?php
-              
+                <?php
+                        
 
-   $result=sendSql("SELECT * FROM dish ORDER BY Name ASC;"); 
+                $result=sendSql("SELECT * FROM dish ORDER BY Name ASC;"); 
 
 
-  if($result->num_rows > 0)
-  {
-  //good it's time to create table
-  //header
-    echo ("<div class=\"ingr_table\" id=\"ingTbl\" ><table>
-    <tr>
-      <th>Страва</th>
-      <th>Вихід</th>
-      <th>Ціна</th> 
-      <th>Тип</th>  
-    </tr>");
-  //rows
+                if($result->num_rows > 0)
+                {
+                //good it's time to create table
+                //header
+                    echo ("<div class=\"ingr_table\" id=\"ingTbl\" ><table>
+                    <tr>
+                    <th>Страва</th>
+                    <th>Ціна</th> 
+                    </tr>");
+                //rows
 
-    while($row = $result->fetch_assoc())
-    {
-      $price = calculateDish($row);
+                    while($row = $result->fetch_assoc())
+                    {
+                    $price = calculateDish($row);
 
-      echo("<tr class='passive'>
-      <td>".$row['Name']." </td>
-      <td>".$row['Outcome']." г</td>
-      <td>".$row['Price']."|".$price." грн </td>
-      <td>".$row['Type']."</td>
-      
-      </tr>");     
-    }
-    echo ("</table></div>");
-  }
-}
+                    echo("<tr class='passive'>
+                    <td>".$row['Name']." </td>
+                    <td>".$row['Price']." грн </td>
+                   
+                    </tr>");     
+                    }
+                    echo ("</table></div>");
+                }
 
-?>
+
+                ?>
               
               
               

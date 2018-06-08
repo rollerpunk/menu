@@ -1,5 +1,7 @@
 @import url(font-awesome.min.css);
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic,800,800italic");
+@import url('https://fonts.googleapis.com/css?family=Pattaya|Gabriela');
+
 
 /*
 	Spectral by HTML5 UP
@@ -1484,10 +1486,14 @@
 			color: inherit;
 			text-decoration: none;
 		}
+        h1 {
+                font-family: 'Gabriela' , serif;
 
+        }
 	h2 {
 		font-size: 1.35em;
 		line-height: 1.75em;
+                font-family: 'Gabriela' , serif;
 	}
 
 		@media screen and (max-width: 736px) {
@@ -2637,7 +2643,10 @@
 		}
 
 		.wrapper.style1 {
-			background-color: #21b2a6;
+                        background-image: -webkit-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("./images/pic2.jpg");
+                        background-position: center center;
+                        background-repeat: no-repeat;
+                        background-size: cover;
 			color: #c7ebe8;
 		}
 
