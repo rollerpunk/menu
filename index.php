@@ -26,7 +26,7 @@ require "lib.php"; // move all DB work outside
 
         <!-- Header -->
           <header id="header" class="alt">
-            <h1><a href="index.html">Медобори</a></h1>
+            <h1><a href="index.php">Медобори</a></h1>
             <nav id="nav">
               <ul>
                 <li class="special">
