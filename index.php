@@ -66,8 +66,8 @@ require "lib.php"; // move all DB work outside
                 <button class="display-left" onclick="plusDivs(-1)">&#10094;</button>
                 <button class="display-right" onclick="plusDivs(1)">&#10095;</button>
 
-<br>
-<div style="text-align:center">
+                <br>
+                <div style="text-align:center">
                   <span class="dot" onclick="showDivs(slideIndex=1)"></span>
                   <span class="dot" onclick="showDivs(slideIndex=2)"></span>
                   <span class="dot" onclick="showDivs(slideIndex=3)"></span>
@@ -84,7 +84,6 @@ require "lib.php"; // move all DB work outside
                 </div>
 
             </div>
-                <p>написано щось про затишок</p>
                 <script>
                   var slideIndex = 1;
                   showDivs(slideIndex);
