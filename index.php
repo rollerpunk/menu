@@ -36,7 +36,7 @@ require "lib.php"; // move all DB work outside
                       <li><a href="#galery">Галерея</a></li>
                       <li><a href="#menuu">Меню</a></li>
                       <li><a href="#contacts">Контакт</a></li>
-                      <li><a href="printD.php">Log In</a></li>
+                      <li><a href="#">Log In</a></li>
                     </ul>
                   </div>
                 </li>
